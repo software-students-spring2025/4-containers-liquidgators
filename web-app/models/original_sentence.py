@@ -1,5 +1,5 @@
 """This DB stores the original sentence that the user speaks into the microphone."""
-from app import mongo
+from web_app.app import mongo
 
 def get_mongo():
     """Return mongo, messes up lazy import!!!"""

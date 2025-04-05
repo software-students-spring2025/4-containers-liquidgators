@@ -1,5 +1,5 @@
 """This DB stores the sentence AFTER IT HAS BEEN BRITISHIFIED USING WORDS DB <- (Tadelin's)"""
-from app import mongo
+from web_app.app import mongo
 
 def get_mongo():
     """Return mongo, messes up lazy import!!!"""
