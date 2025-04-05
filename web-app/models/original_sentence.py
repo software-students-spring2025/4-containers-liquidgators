@@ -6,7 +6,8 @@ def get_mongo():
     return mongo
 
 class OriginalSentence:
-    """An original sentence spoken from the user after it has been parsed from speech through machine learning into text"""
+    """An original sentence spoken from the user after it has been parsed 
+    from speech through machine learning into text"""
     
     def __init__(self):
         """Initialize originalSentence DB"""
@@ -15,4 +16,3 @@ class OriginalSentence:
     def get(self):
         """Get original version of sentence"""
         return {"placeholder": "original"}
-

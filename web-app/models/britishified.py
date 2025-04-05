@@ -15,4 +15,3 @@ class Britishified:
     def get(self):
         """Get the Britishified version of an original sentence"""
         return {"placeholder": "britishified"}
-
