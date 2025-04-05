@@ -1,13 +1,17 @@
 """This DB stores the original sentence that the user speaks into the microphone."""
-from app import mongo # pylint: disable=import-error
+
+from app import mongo  # pylint: disable=import-error
+
 # ^^ Temporary fix to pylint error, need to make sure is fine with prof
+
 
 def get_mongo():
     """Return mongo, messes up lazy import!!!"""
     return mongo
 
+
 class OriginalSentence:
-    """An original sentence spoken from the user after it has been parsed 
+    """An original sentence spoken from the user after it has been parsed
     from speech through machine learning into text"""
 
     def __init__(self):
@@ -21,4 +25,3 @@ class OriginalSentence:
     def make_pylint_happy_func(self):
         """Need two public functions for pylint to be happy"""
         return {"placeholder": "original"}
-    

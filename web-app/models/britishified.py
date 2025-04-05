@@ -1,10 +1,14 @@
 """This DB stores the sentence AFTER IT HAS BEEN BRITISHIFIED USING WORDS DB <- (Tadelin's)"""
-from app import mongo # pylint: disable=import-error
+
+from app import mongo  # pylint: disable=import-error
+
 # ^^ Temporary fix to pylint error, need to make sure is fine with prof
+
 
 def get_mongo():
     """Return mongo, messes up lazy import!!!"""
     return mongo
+
 
 class Britishified:
     """A Britishified sentence from an originalSentence"""
@@ -20,4 +24,3 @@ class Britishified:
     def make_pylint_happy_func(self):
         """Need two public functions for pylint to be happy"""
         return {"placeholder": "britishified"}
-    
