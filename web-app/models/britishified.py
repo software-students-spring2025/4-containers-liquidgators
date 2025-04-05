@@ -1,10 +1,18 @@
+"""This DB stores the sentence AFTER IT HAS BEEN BRITISHIFIED USING WORDS DB <- (Tadelin's)"""
+from app import mongo
+
 def get_mongo():
-    from app import mongo
+    """Return mongo, messes up lazy import!!!"""
     return mongo
 
 class Britishified:
+    """A Britishified sentence from an originalSentence"""
+
     def __init__(self):
-        pass
+        """Initialize Britishified DB"""
+        self.db = get_mongo()
 
+    def get(self):
+        """Get the Britishified version of an original sentence"""
+        return {"placeholder": "britishified"}
 
-# This DB stores the sentence AFTER IT HAS BEEN BRITISHIFIED USING WORDS DB <- (Tadelin's)
