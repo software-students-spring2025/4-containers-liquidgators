@@ -16,7 +16,7 @@ class Britishified:
         """Get the Britishified version of an original sentence"""
         return {"placeholder": "britishified"}
 
-    def make_pylint_happy_func():
+    def make_pylint_happy_func(self):
         """Need two public functions for pylint to be happy"""
-        return
+        return {"placeholder": "britishified"}
     

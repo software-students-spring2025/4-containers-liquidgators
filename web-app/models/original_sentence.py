@@ -17,7 +17,7 @@ class OriginalSentence:
         """Get original version of sentence"""
         return {"placeholder": "original"}
 
-    def make_pylint_happy_func():
+    def make_pylint_happy_func(self):
         """Need two public functions for pylint to be happy"""
-        return
+        return {"placeholder": "original"}
     
