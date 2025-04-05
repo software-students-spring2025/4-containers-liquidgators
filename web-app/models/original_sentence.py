@@ -1,5 +1,6 @@
 """This DB stores the original sentence that the user speaks into the microphone."""
-from web_app.app import mongo
+from app import mongo # pylint: disable=import-error
+# ^^ Temporary fix to pylint error, need to make sure is fine with prof
 
 def get_mongo():
     """Return mongo, messes up lazy import!!!"""

@@ -1,5 +1,6 @@
 """This DB stores the sentence AFTER IT HAS BEEN BRITISHIFIED USING WORDS DB <- (Tadelin's)"""
-from web_app.app import mongo
+from app import mongo # pylint: disable=import-error
+# ^^ Temporary fix to pylint error, need to make sure is fine with prof
 
 def get_mongo():
     """Return mongo, messes up lazy import!!!"""
