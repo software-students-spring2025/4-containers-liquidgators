@@ -147,3 +147,6 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+
+# Google Cloud service account config
+machine-learning-client/swe-project-4-liquid-gators-32c5eea1d351.json
