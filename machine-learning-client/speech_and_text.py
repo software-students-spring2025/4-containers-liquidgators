@@ -10,6 +10,7 @@ Google Cloud Text-to-Speech.
 # assuming we get a .wav or.flac or other audio file as output of getUserMedia()
 import os
 import speech_recognition as sr
+from google.cloud import texttospeech
 
 credential_path = "swe-project-4-liquid-gators-32c5eea1d351.json"
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = credential_path
@@ -34,13 +35,12 @@ except sr.RequestError as e:
 ### british-ifying user input will happen here
 
 # testing text to speech with Google Cloud TTS + example input
-from google.cloud import texttospeech
 
 client = texttospeech.TextToSpeechClient()
-sample_text = "I love crumpets, black tea, the Queen, and all other things British. Aluminium."
+SAMPLE_TEXT = "I love crumpets, black tea, the Queen, and all other things British. Aluminium."
 
 # set text input
-synthesis_input = texttospeech.SynthesisInput(text=sample_text)
+synthesis_input = texttospeech.SynthesisInput(text=SAMPLE_TEXT)
 
 # select parameters for British-accented voice (accent, gender)
 voice = texttospeech.VoiceSelectionParams(
@@ -60,3 +60,4 @@ response = client.synthesize_speech(
 with open("output.mp3", "wb") as out:
     # writes to output file, stored in app repo
     out.write(response.audio_content)
+    
