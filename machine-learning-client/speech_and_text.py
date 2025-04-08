@@ -13,20 +13,20 @@ Google Cloud Text-to-Speech.
 
 # assuming we get a .wav or.flac or other audio file as output of getUserMedia()
 import os
-import speech_recognition as sr # pylint: disable=import-error
+import speech_recognition as sr  # pylint: disable=import-error
 from google.cloud import texttospeech  # pylint: disable=import-error
 
 CREDENTIAL_PATH = "swe-project-4-liquid-gators-32c5eea1d351.json"
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = CREDENTIAL_PATH
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = CREDENTIAL_PATH
 
 # create recognizer
 r = sr.Recognizer()
 
 # testing speech recognition with Google Cloud Speech Recognition + example audio file
-user_inp = sr.AudioFile('machine-learning-client/OSR_us_000_0011_8k.wav')
+user_inp = sr.AudioFile("machine-learning-client/OSR_us_000_0011_8k.wav")
 
 with user_inp as source:
-    audio = r.record(source) # records data into AudioData instance
+    audio = r.record(source)  # records data into AudioData instance
 
 try:
     print("I think you said: " + r.recognize_google_cloud(audio))
@@ -41,7 +41,9 @@ except sr.RequestError as e:
 # testing text to speech with Google Cloud TTS + example input
 
 client = texttospeech.TextToSpeechClient()
-SAMPLE_TEXT = "I love crumpets, black tea, the Queen, and all other things British. Aluminium."
+SAMPLE_TEXT = (
+    "I love crumpets, black tea, the Queen, and all other things British. Aluminium."
+)
 
 # set text input
 synthesis_input = texttospeech.SynthesisInput(text=SAMPLE_TEXT)
@@ -52,9 +54,7 @@ voice = texttospeech.VoiceSelectionParams(
 )
 
 # config audio output file
-audio_config = texttospeech.AudioConfig(
-    audio_encoding=texttospeech.AudioEncoding.MP3
-)
+audio_config = texttospeech.AudioConfig(audio_encoding=texttospeech.AudioEncoding.MP3)
 
 # perform the text-to-speech request
 response = client.synthesize_speech(
