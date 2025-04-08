@@ -12,8 +12,8 @@ import os
 import speech_recognition as sr
 from google.cloud import texttospeech
 
-credential_path = "swe-project-4-liquid-gators-32c5eea1d351.json"
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = credential_path
+CREDENTIAL_PATH = "swe-project-4-liquid-gators-32c5eea1d351.json"
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = CREDENTIAL_PATH
 
 # create recognizer
 r = sr.Recognizer()
@@ -60,4 +60,3 @@ response = client.synthesize_speech(
 with open("output.mp3", "wb") as out:
     # writes to output file, stored in app repo
     out.write(response.audio_content)
-    
