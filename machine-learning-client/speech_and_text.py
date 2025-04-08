@@ -7,10 +7,14 @@ Uses Google Cloud Speech to Text (through Speech Recognition) and
 Google Cloud Text-to-Speech.
 """
 
+# ignoring f-string pylint error, as line 36 cannot be an f-string
+
+# pylint: disable=consider-using-f-string
+
 # assuming we get a .wav or.flac or other audio file as output of getUserMedia()
 import os
-import speech_recognition as sr
-from google.cloud import texttospeech
+import speech_recognition as sr # pylint: disable=import-error
+from google.cloud import texttospeech  # pylint: disable=import-error
 
 CREDENTIAL_PATH = "swe-project-4-liquid-gators-32c5eea1d351.json"
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = CREDENTIAL_PATH
