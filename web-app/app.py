@@ -1,3 +1,4 @@
+"""Main app implementation"""
 from flask import Flask, render_template as rt
 from flask_pymongo import PyMongo
 from dotenv import load_dotenv
@@ -15,16 +16,19 @@ mongo = PyMongo(app)
 
 @app.route("/")
 def home():
+    """Returns home webpage"""
     return rt("index.html")
 
 
 @app.route("/converter")
 def converter():
+    """Returns converter webpage"""
     return rt("converter.html")
 
 
 @app.route("/history")
 def history():
+    """Returns history webpage"""
     return rt("history.html")
 
 
