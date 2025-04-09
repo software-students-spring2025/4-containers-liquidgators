@@ -16,7 +16,6 @@ import os
 import speech_recognition as sr
 from google.cloud import texttospeech
 from pymongo import MongoClient
-import os
 
 mongo_uri = os.environ.get("MONGO_URI")
 mongo_db = os.environ.get("MONGO_DB")
