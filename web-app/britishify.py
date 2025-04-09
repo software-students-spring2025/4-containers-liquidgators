@@ -5,6 +5,16 @@
 # Save the britishified version into britishified DB (Jasmine/ Tadelin)
 
 """This file contains the algorithm to change from american to british"""
+from pymongo import MongoClient
+import os
+
+mongo_uri = os.environ.get("MONGO_URI")
+mongo_db = os.environ.get("MONGO_DB")
+
+client = MongoClient(mongo_uri)
+db = client[mongo_db]
+sentence_collection = db["sentences"]
+
 britishConv = {
     "apartment": "flat",
     "bangs": "fringe",
@@ -12,8 +22,6 @@ britishConv = {
     "chips": "crisps",
     "closet": "wardrobe",
     "cookie": "biscuit",
-    "cotton candy": "candyfloss",
-    "counter clockwise": "anticlockwise",
     "crib": "cot",
     "diaper": "nappy",
     "drugstore": "chemist",
@@ -22,7 +30,7 @@ britishConv = {
     "highway": "motorway",
     "french fries": "chips",
     "gas": "petrol",
-    "jump rope": "skipping rope",
+    "jumprope": "skipping rope",
     "mailbox": "postbox",
     "pacifier": "dummy",
     "pants": "trouser",
@@ -47,7 +55,7 @@ britishConv = {
     "bro": "bloke",
     "tired": "knacked",
     "very": "bloody",
-    "thank you": "cheers",
+    "thanks": "cheers",
     "friends": "mate",
     "angry": "pissed",
     "cup of tea": "cuppa",
@@ -68,7 +76,7 @@ britishConv = {
     "disappointed": "gutted",
     "wow": "blimey",
     "vocabulary": "lexicon",
-    "very big": "massive",
+    "big": "massive",
     "perfect": "impeccable",
     "went": "travelled to",
     "color": "colour",
@@ -77,12 +85,10 @@ britishConv = {
     "aluminum": "aluminium",
     "buck": "quid",
     "slowpoke": "slowcoach",
-    "road trip": "car journey",
+    "roadtrip": "car journey",
     "camper": "caravan",
     "truck": "lorry",
-    "license plate": "number plate",
     "wrench": "spanner",
-    "truck stop": "transport cafe",
     "windshield": "windscreen",
     "armor": "armour",
     "apologize": "apologise",
@@ -93,7 +99,6 @@ britishConv = {
     "meter": "metre",
     "person": "individual",
     "brother": "bruv",
-    "haunted house": "manor",
     "skull": "cranium",
     "coffin": "casket",
     "ghost": "ghoul",
@@ -109,7 +114,26 @@ britishConv = {
     "good": "splendid",
     "bad": "inadequate",
     "boring": "monotonous and tedious",
-    "drug store": "chemist shop",
+    "drugstore": "chemist shop",
     "think": "suspect",
-    "video game": "electronic game",
+    "videogame": "electronic game",
 }
+
+# Assumes user doesn't input audio that fast & ML doesn't process audio that fast!!!
+# Potential bugs with this kind of implementation
+og_sentence = sentence_collection.find_one({"britishified": "NONE"})
+og_words = str(og_sentence["original_sentence"]).split()
+new_sentence = []
+
+for word in og_words:
+    if word in britishConv:
+        new_sentence.append(britishConv[word])
+    else:
+        new_sentence.append(word)
+
+new_sentence = " ".join(new_sentence)
+
+# Now save new britishified sentence to DB
+sentence_collection.update_one(
+    {"_id": og_sentence["_id"]}, {"$set": {"britishified": new_sentence}}
+)
