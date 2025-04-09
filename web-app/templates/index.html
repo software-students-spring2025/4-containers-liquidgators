@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Britishify
+        </title>
+        <link rel="stylesheet" href="../static/index.css">
+    </head>
+    <body>
+        <div class = "nav">
+            <h1>Britishify</h1>
+        </div>
+
+        <div class = "heroCard">
+            <div class = "colorSection"></div>
+            <img id = "flag" src = "../static/britishFlag.png">
+            <div class = "colorSection"></div>
+        </div>
+
+
+        <div id = "buttonDisplay">
+            <div class = "section">
+                <img class = "icon" src = "../static/micIcon.png">
+                <p>Speak a sentence into your mic
+                    and translate it into british</p>
+                <hr>
+                <a href="{{ url_for('converter') }}">
+                    <button>Britishify your sentence</button>
+                </a>
+
+            </div>
+
+            <div class = "section">
+                <img class = "icon" src = "../static/historyIcon.png">
+                <p>View every instance the program was used in</p>
+                <hr>
+                <button>Program History</button>
+            </div>
+        </div>
+
+    </body>
+</html>
