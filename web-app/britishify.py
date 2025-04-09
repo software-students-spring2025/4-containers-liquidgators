@@ -114,7 +114,6 @@ britishConv = {
     "good": "splendid",
     "bad": "inadequate",
     "boring": "monotonous and tedious",
-    "drugstore": "chemist shop",
     "think": "suspect",
     "videogame": "electronic game",
 }
@@ -131,9 +130,9 @@ for word in og_words:
     else:
         new_sentence.append(word)
 
-new_sentence = " ".join(new_sentence)
+NEW_SENTENCE = " ".join(new_sentence)
 
 # Now save new britishified sentence to DB
 sentence_collection.update_one(
-    {"_id": og_sentence["_id"]}, {"$set": {"britishified": new_sentence}}
+    {"_id": og_sentence["_id"]}, {"$set": {"britishified": NEW_SENTENCE}}
 )

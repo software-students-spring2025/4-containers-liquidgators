@@ -1,6 +1,6 @@
 """
-A machine learning client that transforms user speech input 
-to text output that will be displayed on the web app, as well as 
+A machine learning client that transforms user speech input
+to text output that will be displayed on the web app, as well as
 text input to speech output.
 
 Uses Google Cloud Speech to Text (through Speech Recognition) and
