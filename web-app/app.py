@@ -1,8 +1,8 @@
 """Main app implementation"""
+import os
 from flask import Flask, render_template as rt
 from flask_pymongo import PyMongo
 from dotenv import load_dotenv
-import os
 
 
 # Where our main app will go
