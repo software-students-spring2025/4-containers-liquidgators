@@ -5,8 +5,8 @@
 # Save the britishified version into britishified DB (Jasmine/ Tadelin)
 
 """This file contains the algorithm to change from american to british"""
-from pymongo import MongoClient
 import os
+from pymongo import MongoClient
 
 mongo_uri = os.environ.get("MONGO_URI")
 mongo_db = os.environ.get("MONGO_DB")
