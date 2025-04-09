@@ -1,6 +1,6 @@
 """
-A machine learning client that transforms user speech input 
-to text output that will be displayed on the web app, as well as 
+A machine learning client that transforms user speech input
+to text output that will be displayed on the web app, as well as
 text input to speech output.
 
 Uses Google Cloud Speech to Text (through Speech Recognition) and
@@ -13,8 +13,23 @@ Google Cloud Text-to-Speech.
 
 # assuming we get a .wav or.flac or other audio file as output of getUserMedia()
 import os
-import speech_recognition as sr  # pylint: disable=import-error
-from google.cloud import texttospeech  # pylint: disable=import-error
+import speech_recognition as sr
+from google.cloud import texttospeech
+from pymongo import MongoClient
+
+mongo_uri = os.environ.get("MONGO_URI")
+mongo_db = os.environ.get("MONGO_DB")
+
+client = MongoClient(mongo_uri)
+db = client[mongo_db]
+sentence_collection = db["sentences"]
+
+# DB formatted like this:
+# {
+#  id: blah_blah,
+#  original_sentence: "mom",
+#  britishified: "mum"
+# }
 
 CREDENTIAL_PATH = "swe-project-4-liquid-gators-32c5eea1d351.json"
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = CREDENTIAL_PATH
@@ -30,6 +45,12 @@ with user_inp as source:
 
 try:
     print("I think you said: " + r.recognize_google_cloud(audio))
+    # r.recognize_google_cloud(audio) is the text output of the audio file
+    # Store into original_sentence DB
+    original_text_from_API = r.recognize_google_cloud(audio)
+    sentence_collection.insert_one(
+        {"original_sentence": r.recognize_google_cloud(audio), "britishified": "NONE"}
+    )
 except sr.UnknownValueError:
     print("Sorry, could you say that again?")
 except sr.RequestError as e:
