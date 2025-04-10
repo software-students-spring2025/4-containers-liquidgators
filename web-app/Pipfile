@@ -4,6 +4,12 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+python-dotenv = "*"
+google-cloud-texttospeech = "*"
+SpeechRecognition = "*"
+pymongo = "*"
+flask = "*"
+flask-pymongo = "*"
 pylint = "*"
 black = "*"
 
