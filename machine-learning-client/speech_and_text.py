@@ -13,9 +13,9 @@ Google Cloud Text-to-Speech.
 
 # assuming we get a .wav or.flac or other audio file as output of getUserMedia()
 import os
-import speech_recognition as sr # pylint: disable=import-error
-from google.cloud import texttospeech # pylint: disable=import-error
-from pymongo import MongoClient # pylint: disable=import-error
+import speech_recognition as sr  # pylint: disable=import-error
+from google.cloud import texttospeech  # pylint: disable=import-error
+from pymongo import MongoClient  # pylint: disable=import-error
 
 mongo_uri = os.environ.get("MONGO_URI")
 mongo_db = os.environ.get("MONGO_DB")

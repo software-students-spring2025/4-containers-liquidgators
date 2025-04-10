@@ -6,7 +6,7 @@
 
 """This file contains the algorithm to change from american to british"""
 import os
-from pymongo import MongoClient # pylint: disable=import-error
+from pymongo import MongoClient  # pylint: disable=import-error
 
 mongo_uri = os.environ.get("MONGO_URI")
 mongo_db = os.environ.get("MONGO_DB")
