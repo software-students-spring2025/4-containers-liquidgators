@@ -23,10 +23,13 @@ client = MongoClient(mongo_uri)
 db = client[mongo_db]
 sentence_collection = db["sentences"]
 
-CREDENTIAL_PATH = "machine-learning-client/swe-project-4-liquid-gators-32c5eea1d351.json"
+CREDENTIAL_PATH = (
+    "machine-learning-client/swe-project-4-liquid-gators-32c5eea1d351.json"
+)
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = CREDENTIAL_PATH
 
 ## need to test
+
 
 class Speech_to_Text:
     def initialize(self):
@@ -54,7 +57,11 @@ class Speech_to_Text:
         except sr.UnknownValueError:
             print("Sorry, could you say that again?")
         except sr.RequestError as e:
-            print("Could not request results from Google Cloud Speech service; {0}".format(e))
+            print(
+                "Could not request results from Google Cloud Speech service; {0}".format(
+                    e
+                )
+            )
 
 
 # run
@@ -63,4 +70,3 @@ r = sp_to_text.initialize()
 user_audio_file_str = "machine-learning-client/OSR_us_000_0011_8k.wav"
 user_audio = sp_to_text.read_user_inp(user_audio_file_str, r)
 user_text = sp_to_text.speech_recognition(user_audio, r)
-
