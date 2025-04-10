@@ -19,48 +19,44 @@ from google.cloud import texttospeech  # pylint: disable=import-error
 CREDENTIAL_PATH = "swe-project-4-liquid-gators-32c5eea1d351.json"
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = CREDENTIAL_PATH
 
-# create recognizer
-r = sr.Recognizer()
 
-# testing speech recognition with Google Cloud Speech Recognition + example audio file
-user_inp = sr.AudioFile("machine-learning-client/OSR_us_000_0011_8k.wav")
+class Speech_and_Text:
+    def initialize(self):
+        # create recognizer
+        r = sr.Recognizer()
+        return r
 
-with user_inp as source:
-    audio = r.record(source)  # records data into AudioData instance
+    def read_user_inp(self, audio_file_name, recognizer):
+        # using example audio file for now
+        user_inp = sr.AudioFile(audio_file_name)
+        with user_inp as source:
+            audio = recognizer.record(source)  # records data into AudioData instance
 
-try:
-    print("I think you said: " + r.recognize_google_cloud(audio))
-except sr.UnknownValueError:
-    print("Sorry, could you say that again?")
-except sr.RequestError as e:
-    print("Could not request results from Google Cloud Speech service; {0}".format(e))
+        return audio
+
+    def speech_recognition(self, audio):
+        try:
+            user_text = r.recognize_google_cloud(audio)
+            print("I think you said: " + user_text)
+        except sr.UnknownValueError:
+            print("Sorry, could you say that again?")
+        except sr.RequestError as e:
+            print(
+                "Could not request results from Google Cloud Speech service; {0}".format(
+                    e
+                )
+            )
+
+        return user_text
 
 
-### british-ifying user input will happen here
+# run
+sp_to_text = Speech_and_Text()
+r = sp_to_text.initialize()
 
-# testing text to speech with Google Cloud TTS + example input
+# assign user audio file name
+user_audio_file_str = "machine-learning-client/OSR_us_000_0011_8k.wav"
+user_audio = sp_to_text.read_user_inp(user_audio_file_str, r)
+user_text = sp_to_text.speech_recognition(user_audio)
 
-client = texttospeech.TextToSpeechClient()
-SAMPLE_TEXT = (
-    "I love crumpets, black tea, the Queen, and all other things British. Aluminium."
-)
 
-# set text input
-synthesis_input = texttospeech.SynthesisInput(text=SAMPLE_TEXT)
-
-# select parameters for British-accented voice (accent, gender)
-voice = texttospeech.VoiceSelectionParams(
-    language_code="en-GB", ssml_gender=texttospeech.SsmlVoiceGender.NEUTRAL
-)
-
-# config audio output file
-audio_config = texttospeech.AudioConfig(audio_encoding=texttospeech.AudioEncoding.MP3)
-
-# perform the text-to-speech request
-response = client.synthesize_speech(
-    input=synthesis_input, voice=voice, audio_config=audio_config
-)
-
-with open("output.mp3", "wb") as out:
-    # writes to output file, stored in app repo
-    out.write(response.audio_content)
