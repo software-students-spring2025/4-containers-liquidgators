@@ -10,8 +10,6 @@ SpeechRecognition = "*"
 pymongo = "*"
 flask = "*"
 flask-pymongo = "*"
-
-[packages]
 pylint = "*"
 black = "*"
 
