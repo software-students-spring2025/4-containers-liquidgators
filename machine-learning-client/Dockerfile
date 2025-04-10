@@ -8,9 +8,9 @@ COPY . .
 
 RUN pip install pipenv
 
+COPY Pipfile Pipfile.lock /app/
 RUN pipenv install --system --deploy
 
-EXPOSE 5000
+EXPOSE 5001
 
-CMD ["python", "app.py"]
-
+CMD ["python", "speech_and_text.py"]
