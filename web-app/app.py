@@ -1,9 +1,9 @@
 """Main app implementation"""
 
 import os
-from flask import Flask, render_template as rt
-from flask_pymongo import PyMongo
-from dotenv import load_dotenv
+from flask import Flask, render_template as rt # pylint: disable=import-error
+from flask_pymongo import PyMongo # pylint: disable=import-error
+from dotenv import load_dotenv # pylint: disable=import-error
 
 
 # Where our main app will go
