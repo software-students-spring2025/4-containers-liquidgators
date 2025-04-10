@@ -13,9 +13,9 @@ Google Cloud Text-to-Speech.
 
 # assuming we get a .wav or.flac or other audio file as output of getUserMedia()
 import os
-import time
 import speech_recognition as sr  # pylint: disable=import-error
-from google.cloud import texttospeech  # pylint: disable=import-error
+
+# from google.cloud import texttospeech  # pylint: disable=import-error
 from pymongo import MongoClient  # pylint: disable=import-error
 
 mongo_uri = os.environ.get("MONGO_URI")
@@ -48,11 +48,11 @@ r = sr.Recognizer()
 # testing speech recognition with Google Cloud Speech Recognition + example audio file
 # find audio from mongoDB
 while True:
-    audio_file = sentence_collection.find_one({"translated" : False})
+    audio_file = sentence_collection.find_one({"translated": False})
 
-    if (audio_file):
+    if audio_file:
         user_inp = sr.AudioFile(str(audio_file["audio"]))
-        
+
         with user_inp as source:
             audio = r.record(source)  # records data into AudioData instance
 
@@ -62,14 +62,19 @@ while True:
             # Store into original_sentence DB
             original_text_from_API = r.recognize_google_cloud(audio)
             sentence_collection.insert_one(
-                {"original_sentence": r.recognize_google_cloud(audio), "britishified": "NONE"}
+                {
+                    "original_sentence": r.recognize_google_cloud(audio),
+                    "britishified": "NONE",
+                }
             )
         except sr.UnknownValueError:
             print("Sorry, could you say that again?")
         except sr.RequestError as e:
-            print("Could not request results from Google Cloud Speech service; {0}".format(e))
-    else:
-        sleep(5)
+            print(
+                "Could not request results from Google Cloud Speech service; {0}".format(
+                    e
+                )
+            )
 
 # ### british-ifying user input will happen here
 
