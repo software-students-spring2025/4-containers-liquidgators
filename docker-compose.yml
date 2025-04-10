@@ -15,6 +15,7 @@ services:
     build: ./web-app
     environment:
       - MONGO_URI=${MONGO_URI}
+      - MONGO_DB=${MONGO_DB}
     ports: 
       - "5000:5000"
     depends_on:
@@ -24,6 +25,7 @@ services:
     build: ./machine-learning-client
     environment:
       - MONGO_URI=${MONGO_URI}
+      - MONGO_DB=${MONGO_DB}
     depends_on:
       - mongodb
 
