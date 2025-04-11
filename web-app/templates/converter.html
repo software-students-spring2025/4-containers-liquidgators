@@ -41,18 +41,21 @@
             let mediaRecorder;
             record.addEventListener('click', async () => {
                 if (recording == false){
-                    recording = True;
+                    recording = true;
                     recording.style.backgroundColor = "red";
                     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia){
                         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
                         const mediaRecorder = new MediaRecorder(stream);
                         mediaRecorder.start();
+                        console.log("Recording Started")
                     }
                 }
 
-                if (recording = true){
+                if (recording == true){
                     recording.style.backgroundColor = "black";
+                    recording = false;
                     mediaRecorder.stop();
+
                 }
             })
 
@@ -61,7 +64,8 @@
                         };
 
             mediaRecorder.onstop = (e) => {
-                const blob = new Blob(audioBits, { type: 'audio/wav' });   
+                const blob = new Blob(audioBits, { type: 'audio/wav' });  
+                console.log("Recording Stopped.") 
                 fetch("/transcribe", {
                     method: "POST",
                     headers: {
