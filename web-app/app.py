@@ -41,7 +41,7 @@ def history():
 @app.route("/transcribe", methods=["POST"])
 def transcribe():
     """returns trancription"""
-    audio = request.data
+    #audio = request.data
     transcription = "insert Transcription"
     return jsonify({"transcription": transcription})
 
