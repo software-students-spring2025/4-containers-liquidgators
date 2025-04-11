@@ -1,7 +1,12 @@
 """Main app implementation"""
 
 import os
-from flask import Flask, render_template as rt  # pylint: disable=import-error
+from flask import (
+    Flask,
+    request,
+    jsonify,
+    render_template as rt,
+)  # pylint: disable=import-error
 from flask_pymongo import PyMongo  # pylint: disable=import-error
 from dotenv import load_dotenv  # pylint: disable=import-error
 
@@ -31,6 +36,14 @@ def converter():
 def history():
     """Returns history webpage"""
     return rt("history.html")
+
+
+@app.route("/transcribe", methods=["POST"])
+def transcribe():
+    """returns trancription"""
+    audio = request.data
+    transcription = "insert Transcription"
+    return jsonify({"transcription": transcription})
 
 
 if __name__ == "__main__":
