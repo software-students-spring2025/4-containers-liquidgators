@@ -1,3 +1,12 @@
+"""
+A machine learning client that transforms user speech input
+to text output that will be displayed on the web app, as well as
+text input to speech output.
+
+Uses Google Cloud Speech to Text (through Speech Recognition) and
+Google Cloud Text-to-Speech.
+"""
+
 # ignoring f-string pylint error, as line 36 cannot be an f-string
 # pylint: disable=consider-using-f-string
 
@@ -37,12 +46,7 @@ os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = CREDENTIAL_PATH
 
 class SpeechToText:
     """
-    A machine learning client that transforms user speech input
-    to text output that will be displayed on the web app, as well as
-    text input to speech output.
-
-    Uses Google Cloud Speech to Text (through Speech Recognition) and
-    Google Cloud Text-to-Speech.
+    The class that implements the speech-to-text ML client.
     """
 
     def initialize(self):
