@@ -9,7 +9,15 @@ from flask import (
 )  # pylint: disable=import-error
 from flask_pymongo import PyMongo  # pylint: disable=import-error
 from dotenv import load_dotenv  # pylint: disable=import-error
+from pymongo import MongoClient  # pylint: disable=import-error
 
+mongo_uri = os.environ.get("MONGO_URI")
+mongo_db = os.environ.get("MONGO_DB")
+
+client = MongoClient(mongo_uri)
+db = client[mongo_db]
+sentence_collection = db["sentences"]
+audio_collection = db["audio_files"]
 
 # Where our main app will go
 load_dotenv()
@@ -41,7 +49,18 @@ def history():
 @app.route("/transcribe", methods=["POST"])
 def transcribe():
     """returns trancription"""
-    #audio = request.data
+    audio = request.data
+    audio_collection.insert_one({
+        "audio" : audio,
+        "translated" : False
+    })
+
+    # get back text
+    transcribed = False
+    while not transcribed:
+        sentence_collection.find_one()
+
+
     transcription = "insert Transcription"
     return jsonify({"transcription": transcription})
 
