@@ -33,5 +33,43 @@
 
             </div>
         </div>
+
+        <script>
+            const record = document.getElementById("recordBtn");
+            let recording = false;
+            let audioBits = [];
+            let mediaRecorder;
+            record.addEventListener('click', async () => {
+                if (recording == false){
+                    recording = True;
+                    recording.style.backgroundColor = "red";
+                    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia){
+                        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                        const mediaRecorder = new MediaRecorder(stream);
+                        mediaRecorder.start();
+                    }
+                }
+
+                if (recording = true){
+                    recording.style.backgroundColor = "black";
+                    mediaRecorder.stop();
+                }
+            })
+
+            mediaRecorder.ondataavailable = (e) => {
+                            audioBits.push(e.data);
+                        };
+
+            mediaRecorder.onstop = (e) => {
+                const blob = new Blob(audioBits, { type: 'audio/wav' });   
+                fetch("/transcribe", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "audio/wav"
+                    },
+                    body: blob
+                })        
+            }
+        </script>
     </body>
 </html>
