@@ -22,6 +22,20 @@ mongo_db = os.environ.get("MONGO_DB")
 client = MongoClient(mongo_uri)
 db = client[mongo_db]
 sentence_collection = db["sentences"]
+audio_collection = db["audio_files"]
+
+# DB formatted like this:
+# {
+#  id: blah_blah,
+#  original_sentence: "mom",
+#  britishified: "mum"
+# }
+
+# {
+#  id: blah_blah,
+#  audio: "audio.mp3",
+#  translated: False
+# }
 
 CREDENTIAL_PATH = (
     "machine-learning-client/swe-project-4-liquid-gators-32c5eea1d351.json"
@@ -38,10 +52,16 @@ class Speech_to_Text:
         return r
 
     def read_user_inp(self, audio_file_name, recognizer):
-        # using example audio file for now
-        user_inp = sr.AudioFile(audio_file_name)
-        with user_inp as source:
-            audio = recognizer.record(source)  # records data into AudioData instance
+        # using user's un-britishified audio
+        audio_file = sentence_collection.find_one({"translated": False})
+
+        if audio_file != None:
+            user_inp = sr.AudioFile(str(audio_file["audio"]))
+            with user_inp as source:
+                audio = r.record(source)  # records data into AudioData instance
+        else:
+            print("Could not find audio file. Please try again.")
+            return
 
         return audio
 

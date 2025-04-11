@@ -4,4 +4,4 @@ python-dotenv
 flask
 flask-pymongo
 google-cloud-texttospeech
-tomli
+tomllib
