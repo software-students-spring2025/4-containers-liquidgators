@@ -14,7 +14,7 @@
         </div>
 
         <div id = "speak">
-            <img class = "icon" src = "../static/micIcon.png">
+            <img id = "recordBtn" class = "icon" src = "../static/micIcon.png">
             <p>Press the mic and speak into it!</p>
         </div>
 
@@ -42,38 +42,38 @@
             record.addEventListener('click', async () => {
                 if (recording == false){
                     recording = true;
-                    recording.style.backgroundColor = "red";
+                    record.style.backgroundColor = "red";
                     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia){
                         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                        const mediaRecorder = new MediaRecorder(stream);
+                        mediaRecorder = new MediaRecorder(stream);
                         mediaRecorder.start();
                         console.log("Recording Started")
                     }
                 }
 
-                if (recording == true){
-                    recording.style.backgroundColor = "black";
+                else if (recording == true){
+                    record.style.backgroundColor = "white";
                     recording = false;
+                    mediaRecorder.ondataavailable = (e) => {
+                            audioBits.push(e.data);
+                        };
+
+                    mediaRecorder.onstop = (e) => {
+                        const blob = new Blob(audioBits, { type: 'audio/wav' });  
+                        console.log("Recording Stopped.") 
+                        fetch("/transcribe", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "audio/wav"
+                            },
+                            body: blob
+                        })        
+                    }
+
                     mediaRecorder.stop();
 
                 }
             })
-
-            mediaRecorder.ondataavailable = (e) => {
-                            audioBits.push(e.data);
-                        };
-
-            mediaRecorder.onstop = (e) => {
-                const blob = new Blob(audioBits, { type: 'audio/wav' });  
-                console.log("Recording Stopped.") 
-                fetch("/transcribe", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "audio/wav"
-                    },
-                    body: blob
-                })        
-            }
         </script>
     </body>
 </html>
