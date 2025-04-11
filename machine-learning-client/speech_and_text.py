@@ -48,7 +48,7 @@ r = sr.Recognizer()
 # testing speech recognition with Google Cloud Speech Recognition + example audio file
 # find audio from mongoDB
 while True:
-    audio_file = sentence_collection.find_one({"translated": False})
+    audio_file = audio_collection.find_one({"translated": False})
 
     if audio_file:
         user_inp = sr.AudioFile(str(audio_file["audio"]))
