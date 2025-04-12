@@ -6,14 +6,14 @@
 
 """This file contains the algorithm to change from american to british"""
 import os
-from pymongo import MongoClient  # pylint: disable=import-error
+from pymongo import MongoClient 
 
 mongo_uri = os.environ.get("MONGO_URI")
 mongo_db = os.environ.get("MONGO_DB")
 
 client = MongoClient(mongo_uri)
 db = client[mongo_db]
-sentence_collection = db["sentences"]
+sentence_collection = db.sentences
 
 britishConv = {
     "apartment": "flat",

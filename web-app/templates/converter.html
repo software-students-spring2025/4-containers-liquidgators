@@ -58,16 +58,20 @@
                             audioBits.push(e.data);
                         };
 
-                    mediaRecorder.onstop = (e) => {
+                    mediaRecorder.onstop = async (e) => {
                         const blob = new Blob(audioBits, { type: 'audio/wav' });  
+                        const arrayBuffer = await blob.arrayBuffer();
+                        const file = new File([arrayBuffer], 'og.wav', { type: 'audio/wav' });
                         console.log("Recording Stopped.") 
-                        fetch("/transcribe", {
+                        await fetch("/transcribe", {
                             method: "POST",
                             headers: {
                                 "Content-Type": "audio/wav"
                             },
-                            body: blob
-                        })        
+                            body: file
+                        })    
+                        console.log(file)
+                        console.log("Wav'ed")    
                     }
 
                     mediaRecorder.stop();

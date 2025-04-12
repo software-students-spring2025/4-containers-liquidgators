@@ -5,3 +5,5 @@ flask
 flask-pymongo
 google-cloud-texttospeech
 tomli
+pydub
+ffmpeg

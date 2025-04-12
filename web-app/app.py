@@ -6,18 +6,18 @@ from flask import (
     request,
     jsonify,
     render_template as rt,
-)  # pylint: disable=import-error
-from flask_pymongo import PyMongo  # pylint: disable=import-error
-from dotenv import load_dotenv  # pylint: disable=import-error
-from pymongo import MongoClient  # pylint: disable=import-error
+)
+from flask_pymongo import PyMongo  
+from dotenv import load_dotenv  
+from pymongo import MongoClient  
 
 mongo_uri = os.environ.get("MONGO_URI")
 mongo_db = os.environ.get("MONGO_DB")
 
 client = MongoClient(mongo_uri)
-db = client[mongo_db]
-sentence_collection = db["sentences"]
-audio_collection = db["audio_files"]
+db = client.get_database()
+sentence_collection = db.sentences
+audio_collection = db.audioFiles
 
 # Where our main app will go
 load_dotenv()
@@ -50,6 +50,7 @@ def history():
 def transcribe():
     """returns trancription"""
     audio = request.data
+    # console log request
     audio_collection.insert_one({
         "audio" : audio,
         "translated" : False
@@ -57,11 +58,13 @@ def transcribe():
 
     # get back text
     transcribed = False
+    original_sentence_transcribed = None
     while not transcribed:
-        sentence_collection.find_one()
+        original_sentence_transcribed = sentence_collection.find_one({"britishified": "NONE"})
+        if sentence_collection is not None:
+            transcribed = True
 
-
-    transcription = "insert Transcription"
+    transcription = original_sentence_transcribed
     return jsonify({"transcription": transcription})
 
 
