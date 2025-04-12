@@ -13,18 +13,21 @@ Google Cloud Text-to-Speech.
 
 # assuming we get a .wav or.flac or other audio file as output of getUserMedia()
 import os
-import speech_recognition as sr  # pylint: disable=import-error
+import io
+import tempfile
+import speech_recognition as sr
 
-# from google.cloud import texttospeech  # pylint: disable=import-error
-from pymongo import MongoClient  # pylint: disable=import-error
+# from google.cloud import texttospeech
+from pymongo import MongoClient
+from pydub import AudioSegment
 
 mongo_uri = os.environ.get("MONGO_URI")
 mongo_db = os.environ.get("MONGO_DB")
 
 client = MongoClient(mongo_uri)
 db = client[mongo_db]
-sentence_collection = db["sentences"]
-audio_collection = db["audio_files"]
+sentence_collection = db.sentences
+audio_collection = db.audioFiles
 
 # DB formatted like this:
 # {
@@ -51,10 +54,15 @@ while True:
     audio_file = audio_collection.find_one({"translated": False})
 
     if audio_file:
-        user_inp = sr.AudioFile(str(audio_file["audio"]))
+        audio_data = audio_file["audio"]  # records data into AudioData instance
+        audio_segment = AudioSegment.from_file(io.BytesIO(audio_data), format="wav")
 
-        with user_inp as source:
-            audio = r.record(source)  # records data into AudioData instance
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as tmp:
+            audio_segment.export(tmp, format="wav")
+            wav_path = tmp.name
+
+        with sr.AudioFile(wav_path) as source:
+            audio = r.record(source)
 
         try:
             print("I think you said: " + r.recognize_google_cloud(audio))
@@ -66,6 +74,10 @@ while True:
                     "original_sentence": r.recognize_google_cloud(audio),
                     "britishified": "NONE",
                 }
+            )
+
+            audio_collection.update_one(
+                {"id": audio_file["id"], "$set": {"translated": True}}
             )
         except sr.UnknownValueError:
             print("Sorry, could you say that again?")

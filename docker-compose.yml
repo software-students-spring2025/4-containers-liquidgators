@@ -4,18 +4,15 @@ services:
   mongodb:
     image: mongo
     container_name: mongodb
-    environment:
-      - MONGO_INITDB_DATABASE=${MONGO_DB}
     ports:
       - "27017:27017"
-    volumes:
-      - mongo-data:/data/db
 
   web-app:
     build: ./web-app
     environment:
-      - MONGO_URI=${MONGO_URI}
-      - MONGO_DB=${MONGO_DB}
+      - MONGO_URI=mongodb://mongodb:27017/liquidgators
+      - MONGO_DB=project_4_liquidgators
+      - FLASK_ENV=development
     ports: 
       - "5000:5000"
     depends_on:
@@ -24,11 +21,8 @@ services:
   machine-learning-client:
     build: ./machine-learning-client
     environment:
-      - MONGO_URI=${MONGO_URI}
-      - MONGO_DB=${MONGO_DB}
+      - MONGO_URI=mongodb://mongodb:27017/liquidgators
+      - MONGO_DB=project_4_liquidgators
+      - FLASK_ENV=development
     depends_on:
       - mongodb
-
-
-volumes:
-  mongo-data:
