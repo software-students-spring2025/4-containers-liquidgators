@@ -14,8 +14,8 @@ Google Cloud Text-to-Speech.
 # assuming we get a .wav or.flac or other audio file as output of getUserMedia()
 import os
 import io
-import speech_recognition as sr
 import tempfile
+import speech_recognition as sr
 
 # from google.cloud import texttospeech
 from pymongo import MongoClient
