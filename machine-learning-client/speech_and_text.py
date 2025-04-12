@@ -15,11 +15,11 @@ Google Cloud Text-to-Speech.
 import os
 import io
 import speech_recognition as sr
+import tempfile
 
 # from google.cloud import texttospeech
 from pymongo import MongoClient
 from pydub import AudioSegment
-import tempfile
 
 mongo_uri = os.environ.get("MONGO_URI")
 mongo_db = os.environ.get("MONGO_DB")
