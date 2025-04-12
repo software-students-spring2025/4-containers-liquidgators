@@ -14,10 +14,10 @@ Google Cloud Text-to-Speech.
 # assuming we get a .wav or.flac or other audio file as output of getUserMedia()
 import os
 import io
-import speech_recognition as sr  
+import speech_recognition as sr
 
-# from google.cloud import texttospeech  
-from pymongo import MongoClient  
+# from google.cloud import texttospeech
+from pymongo import MongoClient
 from pydub import AudioSegment
 import tempfile
 
@@ -58,8 +58,8 @@ while True:
         audio_segment = AudioSegment.from_file(io.BytesIO(audio_data), format="wav")
 
         with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as tmp:
-                audio_segment.export(tmp, format="wav")
-                wav_path = tmp.name
+            audio_segment.export(tmp, format="wav")
+            wav_path = tmp.name
 
         with sr.AudioFile(wav_path) as source:
             audio = r.record(source)
@@ -76,10 +76,9 @@ while True:
                 }
             )
 
-            audio_collection.update_one({
-                 "id" : audio_file["id"],
-                 "$set": {"translated": True}
-            })
+            audio_collection.update_one(
+                {"id": audio_file["id"], "$set": {"translated": True}}
+            )
         except sr.UnknownValueError:
             print("Sorry, could you say that again?")
         except sr.RequestError as e:
