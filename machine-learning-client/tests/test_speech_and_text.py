@@ -13,7 +13,7 @@ mongo_uri = os.environ.get("MONGO_URI")
 mongo_db = os.environ.get("MONGO_DB")
 
 CREDENTIAL_PATH = (
-    """./machine-learning-client/swe-project-4-liquid-gators-32c5eea1d351.json"""
+    """.swe-project-4-liquid-gators-32c5eea1d351.json"""
 )
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = CREDENTIAL_PATH
 
