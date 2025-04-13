@@ -17,18 +17,14 @@ jobs:
               with:
                 python-version: ${{ matrix.python-version }}
 
-            - name: Decode
+            - name: Write secret to file
               run: |
-                echo "${{ secrets.GOOGLE_CLOUD_CREDENTIALS }}" | base64 -d > machine-learning-client/swe-project-4-liquid-gators-32c5eea1d351.json
-            - name: Set envi var
-              run: |
-                echo "GOOGLE_APPLICATION_CREDENTIALS=$PWD/machine-learning-client/swe-project-4-liquid-gators-32c5eea1d351.json" >> $GITHUB_ENV
+                echo '${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}' > machine-learning-client/credentials.json
 
-            - name: Install dependencies
+            - name: Set environment variable
               run: |
-                python -m pip install --upgrade pip
-                pip install -r requirements.txt 
-            
+                echo "GOOGLE_APPLICATION_CREDENTIALS=$PWD/machine-learning-client/credentials.json" >> $GITHUB_ENV
+                        
             - name: Run Pytest
               working-directory: machine-learning-client
               env:
