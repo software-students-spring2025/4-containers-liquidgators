@@ -20,7 +20,7 @@ The app is composed of three parts:
 - [Tadelin De Leon](https://github.com/TadelinD)
 - [Ray Ochotta](https://github.com/SnowyOchole)
 
-## Setup Instructions
+## Instructions for setup
 
 ### Installation 
 
