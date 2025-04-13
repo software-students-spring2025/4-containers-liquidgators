@@ -14,6 +14,7 @@ from app import app  # pylint: disable=import-error
 
 load_dotenv()
 
+
 @pytest.fixture
 def client():  # pylint: disable=redefined-outer-name
     """Fixture for making test app."""

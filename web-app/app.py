@@ -11,6 +11,7 @@ from flask_pymongo import PyMongo
 from dotenv import load_dotenv
 from pymongo import MongoClient
 
+load_dotenv()
 mongo_uri = os.environ.get("MONGO_URI")
 mongo_db = os.environ.get("MONGO_DB")
 
@@ -20,7 +21,6 @@ sentence_collection = db["sentences"]
 audio_collection = db["audioFiles"]
 
 # Where our main app will go
-load_dotenv()
 app = Flask(__name__)
 app.config["MONGO_URI"] = os.getenv("MONGO_URI", "mongodb://localhost:27017/")
 
