@@ -1,15 +1,12 @@
 """
 Tests for the Web App
 """
-
-import pytest
 from app import app  # pylint: disable=import-error
 import pytest
 
 # from app import create_app
 # from britishify import return_british_dict, return_final_sentence
 # from .. import output
-
 
 @pytest.fixture
 def client():  # pylint: disable=redefined-outer-name
@@ -47,7 +44,8 @@ def test_converter_exists(client):  # pylint: disable=redefined-outer-name
 
 # # Use output.mp3 and check if output is correctly turned into a string
 # def transcription_audio_input_test(create_app):
-#     assert (str(create_app.transcribe(output))).lower == "i love crumpets, black tea, the queen, and all other things british. aluminium"
+#     assert (str(create_app.transcribe(output))).lower == "i love crumpets, black tea, 
+# the queen, and all other things british. aluminium"
 
 # # make sure no AMERICAN words make it out 🔫
 # def sentence_test(create_app):
