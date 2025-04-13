@@ -1,17 +1,16 @@
 """
 Unit testing file using pytest for ML client.
 """
-
+import os
 import pytest
 # import speech_to_text
-import os
 import speech_recognition as sr  # pylint: disable=import-error
-from pymongo import MongoClient  # pylint: disable=import-error
 
 mongo_uri = os.environ.get("MONGO_URI")
 mongo_db = os.environ.get("MONGO_DB")
 
-CREDENTIAL_PATH = "/Users/samlin/4-containers-liquidgators/machine-learning-client/swe-project-4-liquid-gators-32c5eea1d351.json"
+CREDENTIAL_PATH = """/Users/samlin/4-containers-liquidgators/machine-learning-client
+                    /swe-project-4-liquid-gators-32c5eea1d351.json"""
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = CREDENTIAL_PATH
 
 """client = MongoClient(mongo_uri)
@@ -57,5 +56,10 @@ def test_speech_recognition(test_audio_file):
     user_text = r.recognize_google_cloud(audio)
     assert (
         user_text.lower()
-        == "the boy was there when the sun rose a rod is used to catch pink salmon the source of the huge river is the Clear Spring kick the ball straight and follow through help the women get back to her feet the pot of tea helps to pass the evening Smoky fires lack flame and Heat the soft cushion broke the man's fault the salt Breeze came across the sea the girl at the booth sold 50 bonds".lower()
+        == """the boy was there when the sun rose a rod is used to catch
+            pink salmon the source of the huge river is the Clear Spring kick 
+            the ball straight and follow through help the women get back to her feet
+            the pot of tea helps to pass the evening Smoky fires lack flame and
+            Heat the soft cushion broke the man's fault the salt Breeze came across 
+            the sea the girl at the booth sold 50 bonds""".lower()
     ), "Google Cloud speech recognizer is not working at baseline levels."
