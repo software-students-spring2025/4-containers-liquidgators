@@ -80,8 +80,11 @@
 
                             const data = await response.json()
                             console.log(data)
-                            document.getElementsByClassName("output american").content = data
-                            console.log("finished running translation")
+                            console.log(data["transcription"])
+                            const text = document.createElement("p")
+                            text.textContent = data["transcription"]
+                            document.querySelector(".american").appendChild(text)
+                            console.log("finished running transcription")
                         })    
                        
                         // able to get audio File ^^^^^ is pulling from mongoDB working..?

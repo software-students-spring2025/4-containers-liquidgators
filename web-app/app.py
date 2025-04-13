@@ -65,7 +65,7 @@ def transcribe():
         if original_sentence_transcribed is not None:
             transcribed = True
 
-    transcription = original_sentence_transcribed
+    transcription = original_sentence_transcribed["original_sentence"]
     return jsonify({"transcription": transcription})
 
 
