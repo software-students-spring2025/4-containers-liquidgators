@@ -13,4 +13,4 @@ RUN pipenv install --system --deploy
 
 EXPOSE 5001
 
-CMD ["python", "speech_and_text.py"]
+CMD ["python", "speech_to_text.py"]

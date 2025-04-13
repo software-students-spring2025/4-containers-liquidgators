@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 python-dotenv = "*"
 google-cloud-texttospeech = "*"
+pyaudio = "*"
 SpeechRecognition = "*"
 pymongo = "*"
 flask = "*"

@@ -17,7 +17,7 @@ from pymongo import MongoClient  # pylint: disable=import-error
 
 mongo_uri = os.environ.get("MONGO_URI")
 mongo_db = os.environ.get("MONGO_DB")
-
+print(mongo_db)
 client = MongoClient(mongo_uri)
 db = client[mongo_db]
 sentence_collection = db["sentences"]
@@ -63,6 +63,7 @@ class SpeechToText:
         """
         # using user's un-britishified audio
         audio_file = sentence_collection.find_one({"translated": False})
+        print("audio_file")
 
         if audio_file is not None:
             user_inp = sr.AudioFile(str(audio_file["audio"]))
@@ -95,9 +96,9 @@ class SpeechToText:
                 )
             )
 
-
 # run
-sp_to_text = SpeechToText()
-recognizer = sp_to_text.initialize()
-user_audio = sp_to_text.read_user_inp(recognizer)
-sp_to_text.speech_recognition(user_audio, recognizer)
+while True:
+    sp_to_text = SpeechToText()
+    recognizer = sp_to_text.initialize()
+    user_audio = sp_to_text.read_user_inp(recognizer)
+    sp_to_text.speech_recognition(user_audio, recognizer)
