@@ -116,8 +116,8 @@ britishConv = {
     "boring": "monotonous and tedious",
     "think": "suspect",
     "videogame": "electronic game",
-    "color" : "colour",
-    "behavior" : "behaviour",
+    "color": "colour",
+    "behavior": "behaviour",
 }
 
 # Assumes user doesn't input audio that fast & ML doesn't process audio that fast!!!
@@ -139,8 +139,10 @@ sentence_collection.update_one(
     {"_id": og_sentence["_id"]}, {"$set": {"britishified": NEW_SENTENCE}}
 )
 
+
 def return_final_sentence():
     return NEW_SENTENCE
+
 
 def return_british_dict():
     return britishConv

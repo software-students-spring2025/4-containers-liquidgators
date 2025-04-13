@@ -50,9 +50,9 @@ def history():
 def transcribe(audio):
     """returns transcription"""
 
-    if(audio == None):
+    if audio == None:
         audio = request.data
-        
+
     # console log request
     audio_collection.insert_one({"audio": audio, "translated": False})
 
