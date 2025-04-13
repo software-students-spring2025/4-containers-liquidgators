@@ -82,6 +82,7 @@
                             console.log(data)
                             console.log(data["transcription"])
                             const text = document.createElement("p")
+                            text.textContent = ""
                             text.textContent = data["transcription"]
                             document.querySelector(".american").appendChild(text)
                             console.log("finished running transcription")
@@ -92,6 +93,7 @@
                                 const data = await response.json()
                                 console.log(data["britishify"])
                                 const text = document.createElement("p")
+                                text.textContent = ""
                                 text.textContent = data["britishify"]
                                 document.querySelector(".british").appendChild(text)
                                 console.log("finished running britishify")
