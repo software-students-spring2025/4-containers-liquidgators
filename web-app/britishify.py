@@ -139,4 +139,3 @@ while True:
     sentence_collection.update_one(
         {"_id": og_sentence["_id"]}, {"$set": {"britishified": NEW_SENTENCE}}
     )
-

@@ -132,6 +132,7 @@ britishConv = {
     "behavior": "behaviour",
 }
 
+
 @app.route("/")
 def home():
     """Returns home webpage"""
@@ -180,10 +181,8 @@ def britishify():
 
     britishify = False
     while not britishify:
-        to_british_sentence = sentence_collection.find_one(
-            {"britishified": "NONE"}
-        )
-        if to_british_sentence is not None :
+        to_british_sentence = sentence_collection.find_one({"britishified": "NONE"})
+        if to_british_sentence is not None:
             britishify = True
             og_words = str(to_british_sentence["original_sentence"]).split()
             new_sentence = []
@@ -198,7 +197,8 @@ def britishify():
 
             # Now save new britishified sentence to DB
             sentence_collection.update_one(
-                {"_id": to_british_sentence["_id"]}, {"$set": {"britishified": NEW_SENTENCE}}
+                {"_id": to_british_sentence["_id"]},
+                {"$set": {"britishified": NEW_SENTENCE}},
             )
     return jsonify({"britishify": NEW_SENTENCE})
 
