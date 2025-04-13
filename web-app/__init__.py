@@ -17,9 +17,9 @@ def create_app():
     mongo_db = os.environ.get("MONGO_DB")
 
     client = MongoClient(mongo_uri)
-    db = client["project4_liquidgators"]
-    sentence_collection = db.sentences
-    audio_collection = db.audioFiles
+    db = client[mongo_db]
+    sentence_collection = db["sentences"]
+    audio_collection = db["audioFiles"]
 
     load_dotenv()
     app = Flask(__name__)

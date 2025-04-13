@@ -3,6 +3,7 @@ Tests for the Web App
 """
 
 import pytest
+# from britishify import return_final_sentence, return_british_dict
 from app import app  # pylint: disable=import-error
 
 # from app import create_app
@@ -37,17 +38,20 @@ def test_converter_exists(client):  # pylint: disable=redefined-outer-name
 
 
 # # these are mostly tests for audio!
-# @pytest.fixture # fixed tests, single params
+# @pytest.fixture  # fixed tests, single params
 
 # # Make sure output is a string
 # def transcription_output_test(create_app):
 #     result = output.transcribe()
 #     assert isinstance(result, str)
 
+
 # # Use output.mp3 and check if output is correctly turned into a string
 # def transcription_audio_input_test(create_app):
-#     assert (str(create_app.transcribe(output))).lower == "i love crumpets, black tea,
-# the queen, and all other things british. aluminium"
+#     assert (
+#         (str(create_app.transcribe(output))).lower
+#         == "i love crumpets, black tea, the queen, and all other things british. aluminium"
+#     )
 
 # # make sure no AMERICAN words make it out 🔫
 # def sentence_test(create_app):
