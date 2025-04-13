@@ -47,10 +47,12 @@ def history():
 
 
 @app.route("/transcribe", methods=["POST"])
-def transcribe():
-    """returns trancription"""
-    print(request.headers.get("Content-Type"))
-    audio = request.data
+def transcribe(audio):
+    """returns transcription"""
+
+    if(audio == None):
+        audio = request.data
+        
     # console log request
     audio_collection.insert_one({"audio": audio, "translated": False})
 
