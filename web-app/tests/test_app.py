@@ -1,12 +1,11 @@
 """
 Tests for the Web App
 """
-
+from unittest.mock import patch
 import pytest
 from dotenv import load_dotenv
 
 # from britishify import return_final_sentence, return_british_dict
-from unittest.mock import patch
 from app import app  # pylint: disable=import-error
 load_dotenv()
 
