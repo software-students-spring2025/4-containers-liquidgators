@@ -19,7 +19,7 @@ jobs:
 
             - name: Write to file
               run: |
-                echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > machine-learning-client/swe-project-4-liquid-gators-32c5eea1d351.json
+                echo "${{ secrets.GOOGLE_CLOUD_CREDENTIALS }}" > machine-learning-client/swe-project-4-liquid-gators-32c5eea1d351.json
 
             - name: Set envi var
               run: |
@@ -32,6 +32,8 @@ jobs:
             
             - name: Run Pytest
               working-directory: machine-learning-client
+              env:
+                GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/machine-learning-clientswe-project-4-liquid-gators-32c5eea1d351.json
               run: |
                 pipenv install pytest
                 pipenv --venv
