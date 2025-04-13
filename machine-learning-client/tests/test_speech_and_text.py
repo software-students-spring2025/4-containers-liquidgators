@@ -138,7 +138,7 @@ def test_process_audio_print(test_audio_file):
     mock_audio_doc = {"_id": "fake_id_for_test", "audio": audio, "translated": False}
     mock_audio_collection.find_one.return_value = mock_audio_doc
 
-    audio_inner(audio, mock_audio_doc, mock_sentence_collection)
+    audio_inner(audio, mock_audio_doc, mock_sentence_collection, mock_audio_collection)
 
 
 @pytest.mark.parametrize("test_audio_file", ["Silent.wav"])
@@ -155,9 +155,10 @@ def test_process_audio_print_unknown(
 
     mock_recognize_google_cloud.side_effect = sr.UnknownValueError()
     mock_sentence_collection = MagicMock()
+    mock_audio_collection = MagicMock()
     mock_audio_doc = {"_id": "fake_id_for_test", "audio": audio, "translated": False}
 
-    audio_inner(audio, mock_audio_doc, mock_sentence_collection)
+    audio_inner(audio, mock_audio_doc, mock_sentence_collection, mock_audio_collection)
 
     mock_print.assert_any_call("Sorry, could you say that again?")
 

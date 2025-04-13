@@ -67,10 +67,10 @@ def process_audio(
         with sr.AudioFile(wav_path) as source:
             audio = r.record(source)
 
-        audio_inner(audio, audio_file, sentence_collection)
+        audio_inner(audio, audio_file, sentence_collection, audio_collection)
 
 
-def audio_inner(audio, audio_file, sentence_collection):
+def audio_inner(audio, audio_file, sentence_collection, audio_collection):
     """Func to return transcription"""
     try:
         print("I think you said: " + r.recognize_google_cloud(audio))
