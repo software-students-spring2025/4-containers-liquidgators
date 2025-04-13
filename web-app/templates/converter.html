@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="../static/converter.css">
     <body>
         <div class = "nav">
-            <h1>Britishify</h1>
+                <h1>Britishify</h1>
         </div>
 
         <div class = "title">
@@ -72,11 +72,6 @@
                         }).then(async (response) => {
                             console.log(file)
                             console.log("recorded")    
-                            audioUrl = URL.createObjectURL(file)
-                            const audioToPlay = document.createElement('audio')
-                            audioToPlay.src = audioUrl
-                            audioToPlay.controls = true
-                            document.body.appendChild(audioToPlay)
 
                             const data = await response.json()
                             console.log(data)

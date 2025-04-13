@@ -144,13 +144,6 @@ def converter():
     return rt("converter.html")
 
 
-@app.route("/history")
-def history():
-    """Returns history webpage"""
-    sentences = sentence_collection.find({"britishified": {"$ne": "NONE"}})
-    return rt("history.html", sentences=sentences)
-
-
 @app.route("/transcribe", methods=["POST"])
 def transcribe():
     """returns transcription"""
