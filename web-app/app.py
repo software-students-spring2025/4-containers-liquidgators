@@ -15,7 +15,7 @@ mongo_uri = os.environ.get("MONGO_URI")
 mongo_db = os.environ.get("MONGO_DB")
 
 client = MongoClient(mongo_uri)
-db = client.get_database()
+db = client["project4_liquidgators"]
 sentence_collection = db.sentences
 audio_collection = db.audioFiles
 
