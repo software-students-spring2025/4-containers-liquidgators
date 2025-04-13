@@ -148,7 +148,7 @@ def converter():
 def history():
     """Returns history webpage"""
     sentences = sentence_collection.find()
-    return rt("history.html", sentences = sentences)
+    return rt("history.html", sentences=sentences)
 
 
 @app.route("/transcribe", methods=["POST"])
