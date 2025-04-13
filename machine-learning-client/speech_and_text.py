@@ -48,11 +48,6 @@ os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = CREDENTIAL_PATH
 # create recognizer
 r = sr.Recognizer()
 
-# testing speech recognition with Google Cloud Speech Recognition + example audio file
-# find audio from mongoDB
-# checkForAudio = False
-
-
 def process_audio(
     audio_collection, sentence_collection, recognizer
 ):  # pylint: disable=redefined-outer-name disable=unused-argument
