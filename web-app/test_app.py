@@ -1,7 +1,8 @@
 import pytest
-from . import create_app
-from . import britishify
-from .. import output
+from __init__ import create_app
+import britishify
+from britishify import return_british_dict, return_final_sentence
+from .. import output;
 
 # these are mostly tests for audio!
 @pytest.fixture # fixed tests, single params
@@ -16,5 +17,5 @@ def transcription_audio_input_test(create_app):
     
 # make sure no AMERICAN words make it out 🔫
 def sentence_test(create_app):
-    sence = create_app.britishify.NEW_SENTENCE.__contains__(britishify.britishConv.keys())
+    sence = return_final_sentence().__contains__(return_british_dict().keys())
     assert sence == False

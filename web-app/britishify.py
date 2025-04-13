@@ -138,3 +138,9 @@ NEW_SENTENCE = " ".join(new_sentence)
 sentence_collection.update_one(
     {"_id": og_sentence["_id"]}, {"$set": {"britishified": NEW_SENTENCE}}
 )
+
+def return_final_sentence():
+    return NEW_SENTENCE
+
+def return_british_dict():
+    return britishConv
