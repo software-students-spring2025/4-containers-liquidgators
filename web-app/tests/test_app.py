@@ -37,14 +37,19 @@ def test_converter_exists(client):  # pylint: disable=redefined-outer-name
     response = client.get("/converter")
     assert response.status_code == 200
 
+
 @patch("app.audio_collection.insert_one")
 @patch("app.sentence_collection.find_one")
 def test_transcribe_route(mock_find_one, mock_insert_one, client):
-    mock_find_one.return_value = {"original_sentence": "hello world", "britishified": "NONE"}
+    mock_find_one.return_value = {
+        "original_sentence": "hello world",
+        "britishified": "NONE",
+    }
     response = client.post("/transcribe", data=b"fake_audio")
     assert response.status_code == 200
     assert response.json["transcription"] == "hello world"
     mock_insert_one.assert_called_once()
+
 
 @patch("app.sentence_collection.find_one")
 @patch("app.sentence_collection.update_one")
