@@ -6,9 +6,8 @@ import pytest
 from dotenv import load_dotenv
 
 # from britishify import return_final_sentence, return_british_dict
+from unittest.mock import patch
 from app import app  # pylint: disable=import-error
-from unittest.mock import patch, MagicMock
-
 load_dotenv()
 
 
@@ -40,7 +39,7 @@ def test_converter_exists(client):  # pylint: disable=redefined-outer-name
 
 @patch("app.audio_collection.insert_one")
 @patch("app.sentence_collection.find_one")
-def test_transcribe_route(mock_find_one, mock_insert_one, client):
+def test_transcribe_route(mock_find_one, mock_insert_one, client):  # pylint: disable=redefined-outer-name
     mock_find_one.return_value = {
         "original_sentence": "hello world",
         "britishified": "NONE",
@@ -53,7 +52,7 @@ def test_transcribe_route(mock_find_one, mock_insert_one, client):
 
 @patch("app.sentence_collection.find_one")
 @patch("app.sentence_collection.update_one")
-def test_britishify_route(mock_update_one, mock_find_one, client):
+def test_britishify_route(mock_update_one, mock_find_one, client):  # pylint: disable=redefined-outer-name
     mock_find_one.return_value = {
         "_id": "some_id",
         "original_sentence": "That dude is angry his drugstore eggplant is silly",
