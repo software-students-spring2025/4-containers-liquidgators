@@ -6,6 +6,14 @@
 
 A containerized app that takes in non-British English speech and returns Britishified English text.
 
+The app is composed of three parts:
+- *Machine learning client*: 
+    - A Python program that uses Google Cloud Speech to Text to convert the user's speech into text.
+- *Web app*: 
+    - An interface that allows users to speak any phrase or sentence, and view a Britishified version of the input in text form.
+- *MongoDB database*: 
+    - A database that stores the user's audio, user's transcribed text, and the Britishified version of user text. 
+
 ## Teammates
 - [Samantha Lin](https://github.com/sal2948)
 - [Jasmine Fan](https://github.com/jasmine7310)
@@ -37,4 +45,5 @@ cd web-app
 docker build -t localName .
 ```
 5. Inside Docker Desktop, click on the `Images` tab to view your new container. Click on the name you gave your Dockerfile to open it, and click `Run`. Set the port number to anything you'd like, and it will run.
+
 
