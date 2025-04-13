@@ -89,7 +89,7 @@ while True:
             )
 
 # ### british-ifying user input will happen here
-
+# why does pylint hate me
 # # testing text to speech with Google Cloud TTS + example input
 
 # client = texttospeech.TextToSpeechClient()
