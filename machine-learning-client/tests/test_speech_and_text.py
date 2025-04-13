@@ -8,7 +8,7 @@ import pytest
 
 # import speech_to_text
 import speech_recognition as sr  # pylint: disable=import-error
-import speech_and_text 
+import speech_and_text
 
 mongo_uri = os.environ.get("MONGO_URI")
 mongo_db = os.environ.get("MONGO_DB")
