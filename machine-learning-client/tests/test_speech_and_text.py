@@ -57,7 +57,6 @@ def test_speech_recognition(test_audio_file):
         audio = r.record(source)  # records data into AudioData instance
     user_text = r.recognize_google_cloud(audio)
 
-
     def normalize(text):
         return re.sub(r"\s+", " ", text.strip().lower())
 
@@ -70,8 +69,8 @@ def test_speech_recognition(test_audio_file):
     the sea the girl at the booth sold 50 bonds
     """
 
-    assert (
-        normalize(user_text) == normalize(expected_text)
+    assert normalize(user_text) == normalize(
+        expected_text
     ), f"""Google Cloud speech recognizer is not working at baseline levels.
     Expected: {normalize(expected_text)}
     Got: {normalize(user_text)}"""
