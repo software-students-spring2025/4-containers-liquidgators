@@ -88,6 +88,7 @@ def test_speech_recognition(test_audio_file):
     Expected: {normalize(expected_text)}
     Got: {normalize(user_text)}"""
 
+
 # Test with nothing
 def test_process_audio_no_audio():
     mock_audio_collection = mock.Mock(spec=Collection)
@@ -101,7 +102,11 @@ def test_process_audio_no_audio():
     mock_sentence_collection.insert_one.assert_not_called()
     mock_audio_collection.update_one.assert_not_called()
 
-@mock.patch("speech_recognition.Recognizer.recognize_google_cloud", side_effect=sr.RequestError("API unreachable"))
+
+@mock.patch(
+    "speech_recognition.Recognizer.recognize_google_cloud",
+    side_effect=sr.RequestError("API unreachable"),
+)
 def test_mocked_request_error(mock_recognize):
     r = sr.Recognizer()
     audio = mock.Mock()
@@ -113,7 +118,7 @@ def test_mocked_request_error(mock_recognize):
 def test_unknown_value_error(test_audio_file):
     r = sr.Recognizer()
     with sr.AudioFile(test_audio_file) as source:
-        audio = r.record(source) # records data into AudioData instance
+        audio = r.record(source)  # records data into AudioData instance
 
     with pytest.raises(sr.UnknownValueError):
         r.recognize_google_cloud(audio)
@@ -128,24 +133,20 @@ def test_process_audio_print(test_audio_file):
 
     mock_audio_collection = MagicMock()
 
-    mock_audio_collection.find_one.return_value = {
-        "audio": audio,
-        "translated": False
-    }
+    mock_audio_collection.find_one.return_value = {"audio": audio, "translated": False}
 
-    mock_audio_doc = {
-        "_id": "fake_id_for_test",
-        "audio": audio,
-        "translated": False
-    }
+    mock_audio_doc = {"_id": "fake_id_for_test", "audio": audio, "translated": False}
     mock_audio_collection.find_one.return_value = mock_audio_doc
 
     audio_inner(audio, mock_audio_doc)
 
+
 @pytest.mark.parametrize("test_audio_file", ["Silent.wav"])
 @patch("builtins.print")
 @patch("speech_recognition.Recognizer.recognize_google_cloud")
-def test_process_audio_print_unknown(mock_recognize_google_cloud, mock_print, test_audio_file):
+def test_process_audio_print_unknown(
+    mock_recognize_google_cloud, mock_print, test_audio_file
+):
     r = sr.Recognizer()
     user_inp = sr.AudioFile(test_audio_file)
     with user_inp as source:
@@ -153,15 +154,12 @@ def test_process_audio_print_unknown(mock_recognize_google_cloud, mock_print, te
 
     mock_recognize_google_cloud.side_effect = sr.UnknownValueError()
 
-    mock_audio_doc = {
-        "_id": "fake_id_for_test",
-        "audio": audio,
-        "translated": False
-    }
-   
+    mock_audio_doc = {"_id": "fake_id_for_test", "audio": audio, "translated": False}
+
     audio_inner(audio, mock_audio_doc)
 
     mock_print.assert_any_call("Sorry, could you say that again?")
+
 
 @pytest.mark.parametrize("test_audio_file", ["tests/OSR_us_000_0011_8k.wav"])
 def test_process_process_audio(test_audio_file):
@@ -174,8 +172,7 @@ def test_process_process_audio(test_audio_file):
 
     mock_audio_collection.find_one.return_value = {
         "audio": audio_bytes,
-        "translated": False
+        "translated": False,
     }
 
     process_audio(mock_audio_collection, mock_sentence_collection, r)
-

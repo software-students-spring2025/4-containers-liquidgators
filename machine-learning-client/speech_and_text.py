@@ -52,6 +52,7 @@ r = sr.Recognizer()
 # find audio from mongoDB
 # checkForAudio = False
 
+
 def process_audio(audio_collection, sentence_collection, recognizer):
     audio_file = audio_collection.find_one({"translated": False})
 
@@ -69,27 +70,30 @@ def process_audio(audio_collection, sentence_collection, recognizer):
 
         audio_inner(audio, audio_file)
 
-def audio_inner(audio, audio_file):
-            try:
-                print("I think you said: " + r.recognize_google_cloud(audio))
-                # r.recognize_google_cloud(audio) is the text output of the audio file
-                # Store into original_sentence DB
-                sentence_collection.insert_one(
-                    {
-                        "original_sentence": r.recognize_google_cloud(audio),
-                        "britishified": "NONE",
-                    }
-                )
 
-                audio_collection.update_one(
-                    {"_id": audio_file["_id"]}, {"$set": {"translated": True}}
-                )
-            except sr.UnknownValueError:
-                print("Sorry, could you say that again?")
+def audio_inner(audio, audio_file):
+    try:
+        print("I think you said: " + r.recognize_google_cloud(audio))
+        # r.recognize_google_cloud(audio) is the text output of the audio file
+        # Store into original_sentence DB
+        sentence_collection.insert_one(
+            {
+                "original_sentence": r.recognize_google_cloud(audio),
+                "britishified": "NONE",
+            }
+        )
+
+        audio_collection.update_one(
+            {"_id": audio_file["_id"]}, {"$set": {"translated": True}}
+        )
+    except sr.UnknownValueError:
+        print("Sorry, could you say that again?")
+
 
 def main():
     while True:
         process_audio(audio_collection, sentence_collection, r)
+
 
 if __name__ == "__main__":
     main()
