@@ -3,16 +3,15 @@ Tests for the Web App
 """
 
 import pytest
-from app import create_app  # pylint: disable=import-error
+from app import app  # pylint: disable=import-error
 
 
 @pytest.fixture
 def client():  # pylint: disable=redefined-outer-name
     """Fixture for making test app."""
-    app = create_app()
     app.config["TESTING"] = True
-    with app.test_client() as client:  # pylint: disable=redefined-outer-name
-        yield client
+    with app.test_client() as test_client:
+        yield test_client
 
 
 def test_index(client):  # pylint: disable=redefined-outer-name
