@@ -17,10 +17,9 @@ jobs:
               with:
                 python-version: ${{ matrix.python-version }}
 
-            - name: Write to file
+            - name: Decode
               run: |
-                echo "${{ secrets.GOOGLE_CLOUD_CREDENTIALS }}" > machine-learning-client/swe-project-4-liquid-gators-32c5eea1d351.json
-
+                echo "${{ secrets.GOOGLE_CLOUD_CREDENTIALS }}" | base64 -d > machine-learning-client/swe-project-4-liquid-gators-32c5eea1d351.json
             - name: Set envi var
               run: |
                 echo "GOOGLE_APPLICATION_CREDENTIALS=$PWD/machine-learning-client/swe-project-4-liquid-gators-32c5eea1d351.json" >> $GITHUB_ENV
