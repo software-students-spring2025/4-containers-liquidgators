@@ -17,13 +17,13 @@ jobs:
               with:
                 python-version: ${{ matrix.python-version }}
 
-            - name: Write to file
+            - name: Decode
               run: |
-                echo "${{ secrets.GOOGLE_CLOUD_CREDENTIALS }}" > machine-learning-client/swe-project-4-liquid-gators-32c5eea1d351.json
+                echo "${{ secrets.GOOGLE_CLOUD_CREDENTIALS }}" | base64 -d > /home/runner/work/4-containers-liquidgators/4-containers-liquidgators/machine-learning-clientswe-project-4-liquid-gators-32c5eea1d351.json
 
             - name: Set envi var
               run: |
-                echo "GOOGLE_APPLICATION_CREDENTIALS=$PWD/machine-learning-client/swe-project-4-liquid-gators-32c5eea1d351.json" >> $GITHUB_ENV
+                echo "GOOGLE_APPLICATION_CREDENTIALS=/home/runner/work/4-containers-liquidgators/4-containers-liquidgators/machine-learning-clientswe-project-4-liquid-gators-32c5eea1d351.json" >> $GITHUB_ENV
 
             - name: Install dependencies
               run: |
@@ -32,9 +32,7 @@ jobs:
             
             - name: Run Pytest
               working-directory: machine-learning-client
-              env:
-                GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/machine-learning-clientswe-project-4-liquid-gators-32c5eea1d351.json
               run: |
-                pipenv install pytest
+                pipenv install pytest pytest-cov
                 pipenv --venv
-                pipenv run python -m pytest
+                pipenv run python -m pytest --cov=speech_and_text.py --cov-report=term-missing
