@@ -81,6 +81,7 @@
                             const data = await response.json()
                             console.log(data)
                             console.log(data["transcription"])
+                            document.querySelector(".american").innerHTML = ""
                             const text = document.createElement("p")
                             text.textContent = data["transcription"]
                             document.querySelector(".american").appendChild(text)
@@ -91,6 +92,7 @@
                             }).then(async (response) => {
                                 const data = await response.json()
                                 console.log(data["britishify"])
+                                document.querySelector(".british").innerHTML = ""
                                 const text = document.createElement("p")
                                 text.textContent = data["britishify"]
                                 document.querySelector(".british").appendChild(text)
