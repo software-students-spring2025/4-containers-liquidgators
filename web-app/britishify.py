@@ -116,6 +116,8 @@ britishConv = {
     "boring": "monotonous and tedious",
     "think": "suspect",
     "videogame": "electronic game",
+    "color" : "colour",
+    "behavior" : "behaviour",
 }
 
 # Assumes user doesn't input audio that fast & ML doesn't process audio that fast!!!
