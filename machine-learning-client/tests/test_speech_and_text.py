@@ -14,7 +14,7 @@ import speech_recognition as sr  # pylint: disable=import-error
 mongo_uri = os.environ.get("MONGO_URI")
 mongo_db = os.environ.get("MONGO_DB")
 
-# CREDENTIAL_PATH = """.swe-project-4-liquid-gators-32c5eea1d351.json"""
+# CREDENTIAL_PATH = """swe-project-4-liquid-gators-32c5eea1d351.json"""
 # os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = CREDENTIAL_PATH
 
 """client = MongoClient(mongo_uri)
@@ -40,9 +40,10 @@ def test_read_user_inp(test_audio_file):
     """
     Tests reading in of user audio as an AudioFile.
     """
+    test_path = os.path.join(os.path.dirname(__file__), test_audio_file)
     r = sr.Recognizer()
     # using user's un-britishified audio
-    user_inp = sr.AudioFile(test_audio_file)
+    user_inp = sr.AudioFile(test_path)
     with user_inp as source:
         audio = r.record(source)  # records data into AudioData instance
     assert audio is not None, "AudioData instance cannot be None."
