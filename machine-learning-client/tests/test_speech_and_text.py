@@ -4,16 +4,11 @@ Unit testing file using pytest for ML client.
 
 import os
 import re
-from io import BytesIO
-import pytest
-import tempfile
-import unittest
 from unittest import mock
-from unittest.mock import patch, MagicMock, mock_open
-import builtins
+from unittest.mock import patch, MagicMock
+import pytest
 from pymongo.collection import Collection
 from speech_and_text import process_audio
-from pydub import AudioSegment
 from speech_and_text import audio_inner
 
 # import speech_to_text
@@ -91,6 +86,7 @@ def test_speech_recognition(test_audio_file):
 
 # Test with nothing
 def test_process_audio_no_audio():
+    """Test with no audio"""
     mock_audio_collection = mock.Mock(spec=Collection)
     mock_sentence_collection = mock.Mock(spec=Collection)
     recognizer = sr.Recognizer()
@@ -107,7 +103,8 @@ def test_process_audio_no_audio():
     "speech_recognition.Recognizer.recognize_google_cloud",
     side_effect=sr.RequestError("API unreachable"),
 )
-def test_mocked_request_error(mock_recognize):
+def test_mocked_request_error(mock_recognize): # pylint: disable=unused-argument
+    """Test for request err"""
     r = sr.Recognizer()
     audio = mock.Mock()
     with pytest.raises(sr.RequestError):
@@ -116,6 +113,7 @@ def test_mocked_request_error(mock_recognize):
 
 @pytest.mark.parametrize("test_audio_file", ["Silent.wav"])
 def test_unknown_value_error(test_audio_file):
+    """Test for unknown val err"""
     r = sr.Recognizer()
     with sr.AudioFile(test_audio_file) as source:
         audio = r.record(source)  # records data into AudioData instance
@@ -126,6 +124,7 @@ def test_unknown_value_error(test_audio_file):
 
 @pytest.mark.parametrize("test_audio_file", ["OSR_us_000_0011_8k.wav"])
 def test_process_audio_print(test_audio_file):
+    """Test audio print"""
     r = sr.Recognizer()
     user_inp = sr.AudioFile(test_audio_file)
     with user_inp as source:
@@ -147,6 +146,7 @@ def test_process_audio_print(test_audio_file):
 def test_process_audio_print_unknown(
     mock_recognize_google_cloud, mock_print, test_audio_file
 ):
+    """Test audio print with no transcription"""
     r = sr.Recognizer()
     user_inp = sr.AudioFile(test_audio_file)
     with user_inp as source:
@@ -163,6 +163,7 @@ def test_process_audio_print_unknown(
 
 @pytest.mark.parametrize("test_audio_file", ["tests/OSR_us_000_0011_8k.wav"])
 def test_process_process_audio(test_audio_file):
+    """Test process audio"""
     r = sr.Recognizer()
     mock_audio_collection = MagicMock()
     mock_sentence_collection = MagicMock()

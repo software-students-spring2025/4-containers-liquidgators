@@ -53,7 +53,8 @@ r = sr.Recognizer()
 # checkForAudio = False
 
 
-def process_audio(audio_collection, sentence_collection, recognizer):
+def process_audio(audio_collection, sentence_collection, recognizer): # pylint: disable=redefined-outer-name disable=unused-argument
+    """Func to process audio"""
     audio_file = audio_collection.find_one({"translated": False})
 
     if audio_file:
@@ -72,6 +73,7 @@ def process_audio(audio_collection, sentence_collection, recognizer):
 
 
 def audio_inner(audio, audio_file):
+    """Func to return transcription"""
     try:
         print("I think you said: " + r.recognize_google_cloud(audio))
         # r.recognize_google_cloud(audio) is the text output of the audio file
@@ -91,6 +93,7 @@ def audio_inner(audio, audio_file):
 
 
 def main():
+    """main func"""
     while True:
         process_audio(audio_collection, sentence_collection, r)
 

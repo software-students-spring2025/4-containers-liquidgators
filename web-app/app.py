@@ -16,7 +16,7 @@ mongo_uri = os.environ.get("MONGO_URI")
 mongo_db = os.environ.get("MONGO_DB")
 
 client = MongoClient(mongo_uri)
-db = client["project_4_liquidgators_1"]
+db = client["project4_liquidgators"]
 sentence_collection = db["sentences"]
 audio_collection = db["audioFiles"]
 
@@ -128,7 +128,6 @@ britishConv = {
     "boring": "monotonous and tedious",
     "think": "suspect",
     "videogame": "electronic game",
-    "color": "colour",
     "behavior": "behaviour",
 }
 
@@ -179,8 +178,8 @@ def transcribe():
 def britishify():
     """returns britishified sentence"""
 
-    britishify = False
-    while not britishify:
+    britishify = False # pylint: disable=redefined-outer-name
+    while not britishify: # pylint: disable=redefined-outer-name
         to_british_sentence = sentence_collection.find_one({"britishified": "NONE"})
         if to_british_sentence is not None:
             britishify = True
@@ -193,14 +192,14 @@ def britishify():
                 else:
                     new_sentence.append(word)
 
-            NEW_SENTENCE = " ".join(new_sentence)
+            new_sentence = " ".join(new_sentence)
 
             # Now save new britishified sentence to DB
             sentence_collection.update_one(
                 {"_id": to_british_sentence["_id"]},
-                {"$set": {"britishified": NEW_SENTENCE}},
+                {"$set": {"britishified": new_sentence}},
             )
-    return jsonify({"britishify": NEW_SENTENCE})
+    return jsonify({"britishify": new_sentence})
 
 
 if __name__ == "__main__":
