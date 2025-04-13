@@ -25,7 +25,7 @@ mongo_uri = os.environ.get("MONGO_URI")
 mongo_db = os.environ.get("MONGO_DB")
 
 client = MongoClient(mongo_uri)
-db = client[mongo_db]
+db = client.get_database()
 sentence_collection = db.sentences
 audio_collection = db.audioFiles
 
@@ -87,32 +87,3 @@ while True:
                     e
                 )
             )
-
-# ### british-ifying user input will happen here
-# why does pylint hate me
-# # testing text to speech with Google Cloud TTS + example input
-
-# client = texttospeech.TextToSpeechClient()
-# SAMPLE_TEXT = (
-#     "I love crumpets, black tea, the Queen, and all other things British. Aluminium."
-# )
-
-# # set text input
-# synthesis_input = texttospeech.SynthesisInput(text=SAMPLE_TEXT)
-
-# # select parameters for British-accented voice (accent, gender)
-# voice = texttospeech.VoiceSelectionParams(
-#     language_code="en-GB", ssml_gender=texttospeech.SsmlVoiceGender.NEUTRAL
-# )
-
-# # config audio output file
-# audio_config = texttospeech.AudioConfig(audio_encoding=texttospeech.AudioEncoding.MP3)
-
-# # perform the text-to-speech request
-# response = client.synthesize_speech(
-#     input=synthesis_input, voice=voice, audio_config=audio_config
-# )
-
-# with open("output.mp3", "wb") as out:
-#     # writes to output file, stored in app repo
-#     out.write(response.audio_content)
