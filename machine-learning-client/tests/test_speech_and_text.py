@@ -103,7 +103,7 @@ def test_process_audio_no_audio():
     "speech_recognition.Recognizer.recognize_google_cloud",
     side_effect=sr.RequestError("API unreachable"),
 )
-def test_mocked_request_error(mock_recognize): # pylint: disable=unused-argument
+def test_mocked_request_error(mock_recognize):  # pylint: disable=unused-argument
     """Test for request err"""
     r = sr.Recognizer()
     audio = mock.Mock()
@@ -172,7 +172,7 @@ def test_process_process_audio(test_audio_file):
         audio_bytes = f.read()
 
     mock_audio_collection.find_one.return_value = {
-        "_id" : "some_id",
+        "_id": "some_id",
         "audio": audio_bytes,
         "translated": False,
     }

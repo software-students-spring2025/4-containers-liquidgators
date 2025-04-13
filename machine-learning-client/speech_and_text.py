@@ -53,7 +53,9 @@ r = sr.Recognizer()
 # checkForAudio = False
 
 
-def process_audio(audio_collection, sentence_collection, recognizer): # pylint: disable=redefined-outer-name disable=unused-argument
+def process_audio(
+    audio_collection, sentence_collection, recognizer
+):  # pylint: disable=redefined-outer-name disable=unused-argument
     """Func to process audio"""
     audio_file = audio_collection.find_one({"translated": False})
 

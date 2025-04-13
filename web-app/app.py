@@ -178,8 +178,8 @@ def transcribe():
 def britishify():
     """returns britishified sentence"""
 
-    britishify = False # pylint: disable=redefined-outer-name
-    while not britishify: # pylint: disable=redefined-outer-name
+    britishify = False  # pylint: disable=redefined-outer-name
+    while not britishify:  # pylint: disable=redefined-outer-name
         to_british_sentence = sentence_collection.find_one({"britishified": "NONE"})
         if to_british_sentence is not None:
             britishify = True
