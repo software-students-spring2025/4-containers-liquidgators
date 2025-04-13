@@ -14,7 +14,7 @@ import speech_recognition as sr  # pylint: disable=import-error
 from speech_and_text import process_audio
 from speech_and_text import audio_inner
 
-# import speech_and_text  # pylint: disable=unused-import
+import speech_and_text  # pylint: disable=unused-import
 
 mongo_uri = os.environ.get("MONGO_URI")
 mongo_db = os.environ.get("MONGO_DB")
