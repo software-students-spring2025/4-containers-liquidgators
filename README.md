@@ -1,6 +1,6 @@
 ![Lint-free](https://github.com/nyu-software-engineering/containerized-app-exercise/actions/workflows/lint.yml/badge.svg)
-![Python Test Workflow- Machine Learning Client](https://github.com/software-students-spring2025/4-containers-liquidgators/actions/workflows/machine-learning.yml/badge.svg)
-![Python Test Workflow- Web App](https://github.com/software-students-spring2025/4-containers-liquidgators/actions/workflows/web-app.yml/badge.svg)
+![Python Test Workflow- Machine Learning Client](https://github.com/software-students-spring2025/4-containers-liquidgators/actions/workflows/machine-learning.yml/badge.svg?event=pull_request)
+![Python Test Workflow- Web App](https://github.com/software-students-spring2025/4-containers-liquidgators/actions/workflows/web-app.yml/badge.svg?event=pull_request)
 
 # Containerized App Exercise
 
