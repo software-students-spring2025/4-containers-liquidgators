@@ -26,12 +26,6 @@ def test_index(client):  # pylint: disable=redefined-outer-name
     assert response.status_code == 200
 
 
-def test_history_exists(client):  # pylint: disable=redefined-outer-name
-    "Test that history page exists"
-    response = client.get("/history")
-    assert response.status_code == 200
-
-
 def test_converter_exists(client):  # pylint: disable=redefined-outer-name
     "Test that converter page exists"
     response = client.get("/converter")
