@@ -4,6 +4,8 @@ python-dotenv
 flask
 flask-pymongo
 google-cloud-texttospeech
+google-cloud-speech
 tomli
 pydub
 ffmpeg
+pymongo

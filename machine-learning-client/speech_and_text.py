@@ -25,7 +25,7 @@ mongo_uri = os.environ.get("MONGO_URI")
 mongo_db = os.environ.get("MONGO_DB")
 
 client = MongoClient(mongo_uri)
-db = client[mongo_db]
+db = client.get_database()
 sentence_collection = db.sentences
 audio_collection = db.audioFiles
 
@@ -50,12 +50,14 @@ r = sr.Recognizer()
 
 # testing speech recognition with Google Cloud Speech Recognition + example audio file
 # find audio from mongoDB
+# checkForAudio = False
 while True:
     audio_file = audio_collection.find_one({"translated": False})
 
     if audio_file:
+        # checkForAudio = True
         audio_data = audio_file["audio"]  # records data into AudioData instance
-        audio_segment = AudioSegment.from_file(io.BytesIO(audio_data), format="wav")
+        audio_segment = AudioSegment.from_file(io.BytesIO(audio_data), format="webm")
 
         with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as tmp:
             audio_segment.export(tmp, format="wav")
@@ -77,7 +79,7 @@ while True:
             )
 
             audio_collection.update_one(
-                {"id": audio_file["id"], "$set": {"translated": True}}
+                {"_id": audio_file["_id"]}, {"$set": {"translated": True}}
             )
         except sr.UnknownValueError:
             print("Sorry, could you say that again?")
@@ -87,32 +89,3 @@ while True:
                     e
                 )
             )
-
-# ### british-ifying user input will happen here
-
-# # testing text to speech with Google Cloud TTS + example input
-
-# client = texttospeech.TextToSpeechClient()
-# SAMPLE_TEXT = (
-#     "I love crumpets, black tea, the Queen, and all other things British. Aluminium."
-# )
-
-# # set text input
-# synthesis_input = texttospeech.SynthesisInput(text=SAMPLE_TEXT)
-
-# # select parameters for British-accented voice (accent, gender)
-# voice = texttospeech.VoiceSelectionParams(
-#     language_code="en-GB", ssml_gender=texttospeech.SsmlVoiceGender.NEUTRAL
-# )
-
-# # config audio output file
-# audio_config = texttospeech.AudioConfig(audio_encoding=texttospeech.AudioEncoding.MP3)
-
-# # perform the text-to-speech request
-# response = client.synthesize_speech(
-#     input=synthesis_input, voice=voice, audio_config=audio_config
-# )
-
-# with open("output.mp3", "wb") as out:
-#     # writes to output file, stored in app repo
-#     out.write(response.audio_content)

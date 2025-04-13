@@ -15,13 +15,13 @@
 
         <div id = "speak">
             <img id = "recordBtn" class = "icon" src = "../static/micIcon.png">
-            <p>Press the mic and speak into it!</p>
+            <h4>Press the mic and speak into it!</h4>
         </div>
 
         <div class = "showText">
             <h1>American:</h1>
-            <div class = "output">
-
+            <div class = "output american">
+               <p>I am american</p>
             </div>
         </div>
 
@@ -29,7 +29,7 @@
 
         <div class = "showText">
             <h1>British:</h1>
-            <div class = "output">
+            <div class = "output british">
 
             </div>
         </div>
@@ -45,7 +45,7 @@
                     record.style.backgroundColor = "red";
                     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia){
                         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                        mediaRecorder = new MediaRecorder(stream);
+                        mediaRecorder = new MediaRecorder(stream, {mimeType: "audio/webm"});
                         mediaRecorder.start();
                         console.log("Recording Started")
                     }
@@ -59,19 +59,35 @@
                         };
 
                     mediaRecorder.onstop = async (e) => {
-                        const blob = new Blob(audioBits, { type: 'audio/wav' });  
+                        const blob = new Blob(audioBits, { type: 'audio/webm' });  
                         const arrayBuffer = await blob.arrayBuffer();
-                        const file = new File([arrayBuffer], 'og.wav', { type: 'audio/wav' });
+                        const file = new File([arrayBuffer], 'og.webm', { type: 'audio/webm' });
                         console.log("Recording Stopped.") 
                         await fetch("/transcribe", {
                             method: "POST",
                             headers: {
-                                "Content-Type": "audio/wav"
+                                "Content-Type": "audio/webm"
                             },
                             body: file
+                        }).then(async (response) => {
+                            console.log(file)
+                            console.log("recorded")    
+                            audioUrl = URL.createObjectURL(file)
+                            const audioToPlay = document.createElement('audio')
+                            audioToPlay.src = audioUrl
+                            audioToPlay.controls = true
+                            document.body.appendChild(audioToPlay)
+
+                            const data = await response.json()
+                            console.log(data)
+                            console.log(data["transcription"])
+                            const text = document.createElement("p")
+                            text.textContent = data["transcription"]
+                            document.querySelector(".american").appendChild(text)
+                            console.log("finished running transcription")
                         })    
-                        console.log(file)
-                        console.log("Wav'ed")    
+                       
+                        // able to get audio File ^^^^^ is pulling from mongoDB working..?
                     }
 
                     mediaRecorder.stop();

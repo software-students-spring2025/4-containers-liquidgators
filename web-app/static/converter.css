@@ -66,7 +66,7 @@ h1{
     width: 50px;
 }
 
-p{
+h4{
     margin: 0;
     padding: 0;
 }
@@ -91,5 +91,11 @@ p{
 h1{
     width:900px;
     text-align: left !important;
+}
 
+p{
+    padding: 2px;
+    
+    margin-left: 20px;
+    font-size: 30px;
 }

@@ -15,7 +15,7 @@ mongo_uri = os.environ.get("MONGO_URI")
 mongo_db = os.environ.get("MONGO_DB")
 
 client = MongoClient(mongo_uri)
-db = client.get_database()
+db = client["project4_liquidgators"]
 sentence_collection = db.sentences
 audio_collection = db.audioFiles
 
@@ -48,24 +48,26 @@ def history():
 
 @app.route("/transcribe", methods=["POST"])
 def transcribe(audio):
-    """returns trancription"""
+    """returns transcription"""
+
     if(audio == None):
         audio = request.data
-
+        
     # console log request
     audio_collection.insert_one({"audio": audio, "translated": False})
 
     # get back text
     transcribed = False
     original_sentence_transcribed = None
+    # infinite loop? not finding transcription
     while not transcribed:
         original_sentence_transcribed = sentence_collection.find_one(
             {"britishified": "NONE"}
         )
-        if sentence_collection is not None:
+        if original_sentence_transcribed is not None:
             transcribed = True
 
-    transcription = original_sentence_transcribed
+    transcription = original_sentence_transcribed["original_sentence"]
     return jsonify({"transcription": transcription})
 
 
