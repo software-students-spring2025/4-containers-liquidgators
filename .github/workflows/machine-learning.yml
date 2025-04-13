@@ -33,6 +33,6 @@ jobs:
             - name: Run Pytest
               working-directory: machine-learning-client
               run: |
-                pipenv install pytest pytest-cov
+                pipenv install pytest 
                 pipenv --venv
-                pipenv run python -m pytest --cov=speech_and_text.py --cov-report=term-missing
+                pipenv run python -m pytest
