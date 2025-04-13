@@ -2,25 +2,39 @@
 ![Python Test Workflow- Machine Learning Client](https://github.com/software-students-spring2025/4-containers-liquidgators/actions/workflows/machine-learning.yml/badge.svg?event=pull_request)
 ![Python Test Workflow- Web App](https://github.com/software-students-spring2025/4-containers-liquidgators/actions/workflows/web-app.yml/badge.svg?event=pull_request)
 
-# Containerized App Exercise
+# Britishify
 
-Build a containerized app that uses machine learning. See [instructions](./instructions.md) for details.
+A containerized app that takes in non-British English speech and returns Britishified English text.
 
-# Teammates
-Samantha Lin https://github.com/sal2948
+## Teammates
+- [Samantha Lin](https://github.com/sal2948)
+- [Jasmine Fan](https://github.com/jasmine7310)
+- [Tadelin De Leon](https://github.com/TadelinD)
+- [Ray Ochotta](https://github.com/SnowyOchole)
 
-Jasmine Fan https://github.com/jasmine7310
+## Setup Instructions
 
-Tadelin De Leon https://github.com/TadelinD
+### Installation 
 
-Ray Ochotta https://github.com/SnowyOchole
+1. Install Docker Desktop [here](https://www.docker.com/products/docker-desktop/)
+2. Clone and access our repository:
+```
+git clone https://github.com/software-students-spring2025/4-containers-liquidgators.git
+cd 4-containers-liquidgators
+```
+3. Create an `.env` file in the root directory with these parameters:
+```
+GOOGLE_APPLICATION_CREDENTIALS = "provided_google_application_credentials.json"
+MONGO_URI=mongodb://mongodb:your_local_host/your_repo_name
+MONGO_DB=your_database
+```
+3. Access the `web-app` folder:
+```
+cd web-app
+```
+4. With Docker Desktop open, type "docker build -t localName ." localName can be anything you wish. We recommend something like "Britishify" or "necessary_corrector".
+```
+docker build -t localName .
+```
+5. Inside Docker Desktop, click on the `Images` tab to view your new container. Click on the name you gave your Dockerfile to open it, and click `Run`. Set the port number to anything you'd like, and it will run.
 
-instructions for how to configure and run all parts of your project for any developer on any platform - these instructions must work!
-
-1. Install Docker Desktop
-2. cd into ~/web-app/
-3. With Docker Desktop open, type "docker build -t localName ." localName can be anything you wish. We recommend something like "Britishify" or "necessary_corrector".
-4. Inside Docker Desktop, click on the "Images" tab to view your new container. Click on the name you gave your Dockerfile to open it, and click Run. Set the port number to anything you'd like, and it will run.
-
-instructions for how to set up any environment variables and import any starter data into the database, as necessary, for the system to operate correctly when run.
-if there are any "secret" configuration files, such as .env or similar files, that are not included in the version control repository, examples of these files, such as env.example, with dummy data must be included in the repository and exact instructions for how to create the proper configuration files and what their contents should be must be supplied to the course admins by the due date
