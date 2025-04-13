@@ -147,7 +147,7 @@ def converter():
 @app.route("/history")
 def history():
     """Returns history webpage"""
-    sentences = sentence_collection.find()
+    sentences = sentence_collection.find({})
     return rt("history.html", sentences=sentences)
 
 
