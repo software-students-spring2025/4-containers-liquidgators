@@ -50,12 +50,14 @@ r = sr.Recognizer()
 
 # testing speech recognition with Google Cloud Speech Recognition + example audio file
 # find audio from mongoDB
+# checkForAudio = False
 while True:
     audio_file = audio_collection.find_one({"translated": False})
 
     if audio_file:
+        # checkForAudio = True
         audio_data = audio_file["audio"]  # records data into AudioData instance
-        audio_segment = AudioSegment.from_file(io.BytesIO(audio_data), format="wav")
+        audio_segment = AudioSegment.from_file(io.BytesIO(audio_data), format="webm")
 
         with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as tmp:
             audio_segment.export(tmp, format="wav")
@@ -77,7 +79,7 @@ while True:
             )
 
             audio_collection.update_one(
-                {"id": audio_file["id"], "$set": {"translated": True}}
+                {"_id": audio_file["_id"]}, {"$set": {"translated": True}}
             )
         except sr.UnknownValueError:
             print("Sorry, could you say that again?")

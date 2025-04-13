@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "78775cb2be98f5f3c4f88d329c7cbb1d4f5c5d75ad04ad0e32cd957fb3a1688f"
+            "sha256": "a97af4ccc2cb16b626a30368c64335cc31ffbd55053c7675f7e7a3a73997281e"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -289,6 +289,15 @@
             ],
             "markers": "python_version >= '3.7'",
             "version": "==2.38.0"
+        },
+        "google-cloud-speech": {
+            "hashes": [
+                "sha256:bb10defc51570881156893556ee3dc6a481f21ce39196ebd0b3e011dc61a6533",
+                "sha256:fdf0d350c0647b566945402bd8aeef2b7afda67abb5206eb4db4ed41f923b40f"
+            ],
+            "index": "pypi",
+            "markers": "python_version >= '3.7'",
+            "version": "==2.31.1"
         },
         "google-cloud-texttospeech": {
             "hashes": [
