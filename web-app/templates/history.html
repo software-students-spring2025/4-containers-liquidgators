@@ -14,17 +14,14 @@
         </div>
 
         <div class = "showText">
-            <h1>Indubitably the Most Interesting of the Outputs Provided</h1>
-            mmmmmmmmmmmmmmmm indeed
+            <h1>Output of sentences:</h1>
         </div>
 
+        {% for sentence in sentences %}
         <div class="container">
-            <h1>Precocious Sentences</h1>
-            <ul style="list-style-type:disc">
-                <li>Earl Grey Tea</li>
-                <li>English Breakfast Tea</li>
-                <li>Yorkshire Tea</li>
-            </ul>
+            <p>American: {{sentence.original_sentence}}</p>
+            <p>British: {{sentence.britishified}}</p>
         </div>
+        {% endfor %}
     </body>
 </html>

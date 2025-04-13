@@ -99,3 +99,11 @@ p{
     margin-left: 20px;
     font-size: 30px;
 }
+
+.container{
+    background-color:  white;
+    border-radius: 15px;
+    border: solid 2px rgb(234, 167, 167);
+    font-size: 30px;
+    padding-left: 20px; 
+}

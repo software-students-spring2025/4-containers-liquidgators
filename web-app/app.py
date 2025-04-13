@@ -16,7 +16,7 @@ mongo_uri = os.environ.get("MONGO_URI")
 mongo_db = os.environ.get("MONGO_DB")
 
 client = MongoClient(mongo_uri)
-db = client["project_4_liquidgators_1"]
+db = client["project4_liquidgators_1"]
 sentence_collection = db["sentences"]
 audio_collection = db["audioFiles"]
 
@@ -128,7 +128,6 @@ britishConv = {
     "boring": "monotonous and tedious",
     "think": "suspect",
     "videogame": "electronic game",
-    "color": "colour",
     "behavior": "behaviour",
 }
 
@@ -148,7 +147,8 @@ def converter():
 @app.route("/history")
 def history():
     """Returns history webpage"""
-    return rt("history.html")
+    sentences = sentence_collection.find_one({"britishified": {"$ne": "NONE"}})
+    return rt("history.html", sentences=sentences)
 
 
 @app.route("/transcribe", methods=["POST"])
