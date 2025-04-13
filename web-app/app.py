@@ -49,6 +49,7 @@ def history():
 @app.route("/transcribe", methods=["POST"])
 def transcribe():
     """returns trancription"""
+    print(request.headers.get("Content-Type"))
     audio = request.data
     # console log request
     audio_collection.insert_one({"audio": audio, "translated": False})
@@ -56,11 +57,12 @@ def transcribe():
     # get back text
     transcribed = False
     original_sentence_transcribed = None
+    # infinite loop? not finding transcription
     while not transcribed:
         original_sentence_transcribed = sentence_collection.find_one(
             {"britishified": "NONE"}
         )
-        if sentence_collection is not None:
+        if original_sentence_transcribed is not None:
             transcribed = True
 
     transcription = original_sentence_transcribed
