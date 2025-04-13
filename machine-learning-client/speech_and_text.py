@@ -42,8 +42,8 @@ audio_collection = db["audioFiles"]
 #  translated: False
 # }
 
-CREDENTIAL_PATH = "swe-project-4-liquid-gators-32c5eea1d351.json"
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = CREDENTIAL_PATH
+# CREDENTIAL_PATH = "swe-project-4-liquid-gators-32c5eea1d351.json"
+# os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = CREDENTIAL_PATH
 
 # create recognizer
 r = sr.Recognizer()
