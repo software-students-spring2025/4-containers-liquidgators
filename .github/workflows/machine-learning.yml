@@ -17,9 +17,9 @@ jobs:
               with:
                 python-version: ${{ matrix.python-version }}
 
-            - name: Write to file
+            - name: Decode
               run: |
-                echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > /home/runner/work/4-containers-liquidgators/4-containers-liquidgators/machine-learning-clientswe-project-4-liquid-gators-32c5eea1d351.json
+                echo "${{ secrets.GOOGLE_CLOUD_CREDENTIALS }}" | base64 -d > /home/runner/work/4-containers-liquidgators/4-containers-liquidgators/machine-learning-clientswe-project-4-liquid-gators-32c5eea1d351.json
 
             - name: Set envi var
               run: |
