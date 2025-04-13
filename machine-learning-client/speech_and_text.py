@@ -25,9 +25,9 @@ mongo_uri = os.environ.get("MONGO_URI")
 mongo_db = os.environ.get("MONGO_DB")
 
 client = MongoClient(mongo_uri)
-db = client.get_database()
-sentence_collection = db.sentences
-audio_collection = db.audioFiles
+db = client[mongo_db]
+sentence_collection = db["sentences"]
+audio_collection = db["audioFiles"]
 
 # DB formatted like this:
 # {

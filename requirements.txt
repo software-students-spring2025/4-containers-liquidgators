@@ -9,3 +9,4 @@ tomli
 pydub
 ffmpeg
 pymongo
+pytest

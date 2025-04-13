@@ -116,31 +116,26 @@ britishConv = {
     "boring": "monotonous and tedious",
     "think": "suspect",
     "videogame": "electronic game",
-    "color" : "colour",
-    "behavior" : "behaviour",
+    "color": "colour",
+    "behavior": "behaviour",
 }
 
 # Assumes user doesn't input audio that fast & ML doesn't process audio that fast!!!
 # Potential bugs with this kind of implementation
-og_sentence = sentence_collection.find_one({"britishified": "NONE"})
-og_words = str(og_sentence["original_sentence"]).split()
-new_sentence = []
+while True:
+    og_sentence = sentence_collection.find_one({"britishified": "NONE"})
+    og_words = str(og_sentence["original_sentence"]).split()
+    new_sentence = []
 
-for word in og_words:
-    if word in britishConv:
-        new_sentence.append(britishConv[word])
-    else:
-        new_sentence.append(word)
+    for word in og_words:
+        if word in britishConv:
+            new_sentence.append(britishConv[word])
+        else:
+            new_sentence.append(word)
 
-NEW_SENTENCE = " ".join(new_sentence)
+    NEW_SENTENCE = " ".join(new_sentence)
 
-# Now save new britishified sentence to DB
-sentence_collection.update_one(
-    {"_id": og_sentence["_id"]}, {"$set": {"britishified": NEW_SENTENCE}}
-)
-
-def return_final_sentence():
-    return NEW_SENTENCE
-
-def return_british_dict():
-    return britishConv
+    # Now save new britishified sentence to DB
+    sentence_collection.update_one(
+        {"_id": og_sentence["_id"]}, {"$set": {"britishified": NEW_SENTENCE}}
+    )
