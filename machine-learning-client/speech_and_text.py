@@ -48,6 +48,7 @@ os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = CREDENTIAL_PATH
 # create recognizer
 r = sr.Recognizer()
 
+
 def process_audio(
     audio_collection, sentence_collection, recognizer
 ):  # pylint: disable=redefined-outer-name disable=unused-argument
