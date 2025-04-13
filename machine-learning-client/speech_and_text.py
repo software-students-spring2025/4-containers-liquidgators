@@ -25,7 +25,7 @@ mongo_uri = os.environ.get("MONGO_URI")
 mongo_db = os.environ.get("MONGO_DB")
 
 client = MongoClient(mongo_uri)
-db = client["project4_liqguidgators_1"]
+db = client["project4_liquidgators_1"]
 sentence_collection = db["sentences"]
 audio_collection = db["audioFiles"]
 
@@ -67,10 +67,10 @@ def process_audio(
         with sr.AudioFile(wav_path) as source:
             audio = r.record(source)
 
-        audio_inner(audio, audio_file)
+        audio_inner(audio, audio_file, sentence_collection)
 
 
-def audio_inner(audio, audio_file):
+def audio_inner(audio, audio_file, sentence_collection):
     """Func to return transcription"""
     try:
         print("I think you said: " + r.recognize_google_cloud(audio))
