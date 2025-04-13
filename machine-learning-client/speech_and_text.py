@@ -59,7 +59,7 @@ def process_audio(audio_collection, sentence_collection, recognizer):
     if audio_file:
         # checkForAudio = True
         audio_data = audio_file["audio"]  # records data into AudioData instance
-        audio_segment = AudioSegment.from_file(io.BytesIO(audio_data), format="webm")
+        audio_segment = AudioSegment.from_file(io.BytesIO(audio_data), format="wav")
 
         with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as tmp:
             audio_segment.export(tmp, format="wav")

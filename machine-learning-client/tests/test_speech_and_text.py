@@ -4,7 +4,7 @@ Unit testing file using pytest for ML client.
 
 import os
 import re
-import io
+from io import BytesIO
 import pytest
 import tempfile
 import unittest
@@ -171,6 +171,7 @@ def test_process_process_audio(test_audio_file):
         audio_bytes = f.read()
 
     mock_audio_collection.find_one.return_value = {
+        "_id" : "some_id",
         "audio": audio_bytes,
         "translated": False,
     }
