@@ -23,7 +23,7 @@ jobs:
 
             - name: Set envi var
               run: |
-                echo "GOOGLE_APPLICATION_CREDENTIALS=$PWD/machine-learning-client/swe-project-4-liquid-gators-32c5eea1d351.json" >> $GITHUB_ENV
+                echo "GOOGLE_APPLICATION_CREDENTIALS=$GITHUB_WORKSPACE/machine-learning-client/swe-project-4-liquid-gators-32c5eea1d351.json" >> $GITHUB_ENV
 
             - name: Install dependencies
               run: |
