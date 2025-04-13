@@ -23,10 +23,10 @@ jobs:
                 pip install -r requirements.txt 
             
             - name: Write to file
-              run: echo "${{ secrets.GOOGLE_CREDENTIALS_JSON }}" > swe-project-4-liquid-gators-32c5eea1d351.json
+              run: echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > swe-project-4-liquid-gators-32c5eea1d351.json
 
             - name: Set envi var
-              run: echo "GOOGLE_CREDENTIALS=$PWD/swe-project-4-liquid-gators-32c5eea1d351.json" >> $GITHUB_ENV
+              run: echo "GOOGLE_APPLICATION_CREDENTIALS=$PWD/swe-project-4-liquid-gators-32c5eea1d351.json" >> $GITHUB_ENV
 
             - name: Run Pytest
               working-directory: machine-learning-client
