@@ -3,6 +3,7 @@ Tests for the Web App
 """
 
 import pytest
+from dotenv import load_dotenv
 
 # from britishify import return_final_sentence, return_british_dict
 from app import app  # pylint: disable=import-error
@@ -11,6 +12,7 @@ from app import app  # pylint: disable=import-error
 # from britishify import return_british_dict, return_final_sentence
 # from .. import output
 
+load_dotenv()
 
 @pytest.fixture
 def client():  # pylint: disable=redefined-outer-name
