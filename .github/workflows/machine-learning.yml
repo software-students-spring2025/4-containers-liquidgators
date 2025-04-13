@@ -35,6 +35,6 @@ jobs:
               env:
                 GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/machine-learning-clientswe-project-4-liquid-gators-32c5eea1d351.json
               run: |
-                pipenv install pytest
+                pipenv install pytest pytest-cov
                 pipenv --venv
-                pipenv run python -m pytest
+                pipenv run python -m pytest --cov=speech_and_text.py --cov-report=term-missing

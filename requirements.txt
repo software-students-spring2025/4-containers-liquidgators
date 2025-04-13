@@ -10,3 +10,4 @@ pydub
 ffmpeg
 pymongo
 pytest
+pytest-cov
